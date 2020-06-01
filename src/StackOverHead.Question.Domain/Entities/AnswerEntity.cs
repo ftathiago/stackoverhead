@@ -15,7 +15,7 @@ namespace StackOverHead.Question.Domain.Entities
         public Entity Parent { get; private set; }
         private List<CommentEntity> _comments;
 
-        public AnswerEntity(string body, Guid userId, AnswerKind kind, int votes = 0)
+        public AnswerEntity(string body, Guid userId, AnswerKind kind, int votes)
         {
             Body = body;
             UserId = userId;

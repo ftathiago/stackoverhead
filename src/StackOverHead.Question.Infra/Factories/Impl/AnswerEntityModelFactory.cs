@@ -42,7 +42,8 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             var entity = new AnswerEntity(
                 data.Body,
                 data.UserId,
-                (AnswerKind)data.KindOf
+                (AnswerKind)data.KindOf,
+                data.Votes
             );
             entity.DefineId(data.Id);
             data.Comments.ToList().ForEach(comment =>

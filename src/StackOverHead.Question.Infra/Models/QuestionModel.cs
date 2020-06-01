@@ -15,7 +15,6 @@ namespace StackOverHead.Question.Infra.Models
         public int ViewCount { get; set; }
         public int Status { get; set; }
         public Guid UserId { get; set; }
-        public int Votes { get; set; }
         public string Tags { get; set; }
         public virtual ICollection<AnswerModel> Answers { get; set; }
     }
