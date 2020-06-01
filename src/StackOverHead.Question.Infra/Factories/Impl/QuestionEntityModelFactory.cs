@@ -59,8 +59,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             var entity = new QuestionEntity(
                 data.Title,
                 data.UserId,
-                data.Tags,
-                data.Votes
+                data.Tags
             );
             entity.DefineId(data.Id);
             LoadAnswerFromModelToEntity(entity, data);

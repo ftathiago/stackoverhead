@@ -30,7 +30,8 @@ namespace StackOverHead.Question.Domain.CommandHandlers
             var questionBody = new AnswerEntity(
                 request.Body,
                 request.UserId,
-                AnswerKind.QuestionBody
+                AnswerKind.QuestionBody,
+                votes: 0
             );
             questionBody.DefineId(Guid.NewGuid());
 

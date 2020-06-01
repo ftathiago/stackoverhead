@@ -17,7 +17,8 @@ using System.Threading.Tasks;
 namespace StackOverHead.E2E.Tests.Controllers
 {
     public class QuestionControllerTests :
-        IClassFixture<StackOverHeadWebFixtures>
+        IClassFixture<StackOverHeadWebFixtures>,
+        IDisposable
     {
         private readonly TestServer _server;
         private readonly HttpClient _client;

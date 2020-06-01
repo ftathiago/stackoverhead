@@ -14,7 +14,7 @@ namespace StackOverHead.Question.App.Factories.Impl
                 Title = entity.Title,
                 Body = entity.QuestionBody?.Body,
                 Tags = entity.Tags,
-                Votes = entity.Votes,
+                Votes = entity.QuestionBody.Votes,
                 User = new UserResponse
                 {
                     Id = entity.UserId,
