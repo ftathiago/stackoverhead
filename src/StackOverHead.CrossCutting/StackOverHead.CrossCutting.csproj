@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StackOverHead.Question.App\StackOverHead.Question.App.csproj" />
+    <ProjectReference Include="..\StackOverHead.Question.Domain\StackOverHead.Question.Domain.csproj" />
+    <ProjectReference Include="..\StackOverHead.Question.Infra\StackOverHead.Question.Infra.csproj" />
+    <ProjectReference Include="..\StackOverHead.Auth.App\StackOverHead.Auth.App.csproj" />
+    <ProjectReference Include="..\StackOverHead.Auth.Domain\StackOverHead.Auth.Domain.csproj" />
+    <ProjectReference Include="..\StackOverHead.Auth.Infra\StackOverHead.Auth.Infra.csproj" />
+    <ProjectReference Include="..\StackOverHead.LibCommon\StackOverHead.LibCommon.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.4" />
+  </ItemGroup>
+</Project>
