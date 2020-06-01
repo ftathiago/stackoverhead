@@ -8,7 +8,6 @@ namespace StackOverHead.Question.Infra.Models
         public QuestionModel()
         {
             Answers = new List<AnswerModel>();
-            UserVotes = new List<QuestionUserVotesModel>();
         }
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -18,7 +17,6 @@ namespace StackOverHead.Question.Infra.Models
         public Guid UserId { get; set; }
         public int Votes { get; set; }
         public string Tags { get; set; }
-        public virtual ICollection<QuestionUserVotesModel> UserVotes { get; set; }
         public virtual ICollection<AnswerModel> Answers { get; set; }
     }
 }

@@ -9,7 +9,6 @@ namespace StackOverHead.Question.Infra.Context
         public DbSet<AnswerModel> Answers { get; set; }
         public DbSet<AnswerUserVotesModel> AnswerUserVotes { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }
-        public DbSet<QuestionUserVotesModel> QuestionUserVotes { get; set; }
 
         public StackOverHeadQuestionDbContext() : base() { }
         public StackOverHeadQuestionDbContext(DbContextOptions<StackOverHeadQuestionDbContext> options)
@@ -21,7 +20,6 @@ namespace StackOverHead.Question.Infra.Context
             modelBuilder.ApplyConfiguration(new AnswerMap());
             modelBuilder.ApplyConfiguration(new QuestionMap());
             modelBuilder.ApplyConfiguration(new AnswerUserVotesMap());
-            modelBuilder.ApplyConfiguration(new QuestionUserVotesMap());
 
             base.OnModelCreating(modelBuilder);
         }
