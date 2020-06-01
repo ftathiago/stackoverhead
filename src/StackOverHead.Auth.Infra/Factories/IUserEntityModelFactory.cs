@@ -1,6 +1,7 @@
 using AutoMapper;
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Infra.Models;
+using StackOverHead.LibCommon.Entities;
 using StackOverHead.LibCommon.Repositories;
 
 namespace StackOverHead.Auth.Infra.Factories

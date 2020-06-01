@@ -6,7 +6,7 @@ namespace StackOverHead.Question.App.Factories.Impl
 {
     public class QuestionResponseFactory : IQuestionResponseFactory
     {
-        public QuestionResponse ToDTO(QuestionEntity entity)
+        public QuestionResponse Execute(QuestionEntity entity)
         {
             var response = new QuestionResponse
             {
@@ -21,7 +21,15 @@ namespace StackOverHead.Question.App.Factories.Impl
                     Name = "Not especified yet"
                 }
             };
+            LoadAnswersToResponse(entity, response);
 
+            LoadCommentsToResponse(entity, response);
+
+            return response;
+        }
+
+        private void LoadAnswersToResponse(QuestionEntity entity, QuestionResponse response)
+        {
             entity.Answers.ToList().ForEach(answer =>
             {
                 var newAnswer = new AnswerResponse()
@@ -34,23 +42,31 @@ namespace StackOverHead.Question.App.Factories.Impl
                         Id = answer.UserId
                     }
                 };
+                LoadAnswersCommentsToResponse(answer, newAnswer);
 
-                answer.Comments.ToList().ForEach(comment =>
-                {
-                    var newComment = new CommentResponse
-                    {
-                        Id = comment.Id,
-                        Body = comment.Body,
-                        User = new UserResponse
-                        {
-                            Id = comment.UserId
-                        }
-                    };
-                    newAnswer.Comments.Add(newComment);
-                });
                 response.Answers.Add(newAnswer);
             });
+        }
 
+        private void LoadAnswersCommentsToResponse(AnswerEntity entity, AnswerResponse response)
+        {
+            entity.Comments.ToList().ForEach(comment =>
+            {
+                var newComment = new CommentResponse
+                {
+                    Id = comment.Id,
+                    Body = comment.Body,
+                    User = new UserResponse
+                    {
+                        Id = comment.UserId
+                    }
+                };
+                response.Comments.Add(newComment);
+            });
+        }
+
+        private void LoadCommentsToResponse(QuestionEntity entity, QuestionResponse response)
+        {
             entity.Comments.ToList().ForEach(comment =>
             {
                 var newComment = new CommentResponse()
@@ -64,13 +80,6 @@ namespace StackOverHead.Question.App.Factories.Impl
                 };
                 response.Comments.Add(newComment);
             });
-
-            return response;
-        }
-
-        public QuestionEntity ToEntity(QuestionResponse data)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

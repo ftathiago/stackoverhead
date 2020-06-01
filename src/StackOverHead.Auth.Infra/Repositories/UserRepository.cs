@@ -18,7 +18,7 @@ namespace StackOverHead.Auth.Infra.Repositories
         public User GetByEmail(string email)
         {
             var user = DbSet.Where(user => user.Email == email).FirstOrDefault();
-            User userEntity = _factory.ToEntity(user);
+            User userEntity = _factory.Execute(user);
             return userEntity;
         }
     }

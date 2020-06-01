@@ -15,7 +15,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             _commentFactory = commentFactory;
         }
 
-        public AnswerModel ToDTO(AnswerEntity entity)
+        public AnswerModel Execute(AnswerEntity entity)
         {
             var model = new AnswerModel();
             model.Id = entity.Id;
@@ -30,14 +30,14 @@ namespace StackOverHead.Question.Infra.Factories.Impl
         {
             entity.Comments.ToList().ForEach(comment =>
             {
-                var newComment = _commentFactory.ToDTO(comment);
+                var newComment = _commentFactory.Execute(comment);
                 if (newComment.Id == Guid.Empty)
                     newComment.Id = Guid.NewGuid();
                 model.Comments.Add(newComment);
             });
         }
 
-        public AnswerEntity ToEntity(AnswerModel data)
+        public AnswerEntity Execute(AnswerModel data)
         {
             var entity = new AnswerEntity(
                 data.Body,
@@ -48,7 +48,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             entity.DefineId(data.Id);
             data.Comments.ToList().ForEach(comment =>
             {
-                var newComment = _commentFactory.ToEntity(comment);
+                var newComment = _commentFactory.Execute(comment);
                 newComment.SetParent(entity);
                 entity.AddComment(newComment);
             });

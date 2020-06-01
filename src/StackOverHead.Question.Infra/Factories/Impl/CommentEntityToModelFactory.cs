@@ -6,7 +6,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
 {
     public class CommentEntityToModelFactory : ICommentEntityToModelFactory
     {
-        public AnswerModel ToDTO(CommentEntity entity)
+        public AnswerModel Execute(CommentEntity entity)
         {
             var model = new AnswerModel();
             model.KindOf = (int)AnswerKind.Comment;
@@ -16,7 +16,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             return model;
         }
 
-        public CommentEntity ToEntity(AnswerModel data)
+        public CommentEntity Execute(AnswerModel data)
         {
             var entity = new CommentEntity(
                 data.UserId,

@@ -41,7 +41,7 @@ namespace StackOverHead.Question.App.Services.Impl
             var question = await _repository.GetByIdAsync(Id);
             if (question == null)
                 return new QuestionResponse();
-            var response = _responseFactory.ToDTO(question);
+            var response = _responseFactory.Execute(question);
             return response;
         }
     }

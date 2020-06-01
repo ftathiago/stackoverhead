@@ -19,7 +19,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             _commentFactory = commentFactory;
         }
 
-        public QuestionModel ToDTO(QuestionEntity entity)
+        public QuestionModel Execute(QuestionEntity entity)
         {
             var model = new QuestionModel();
             model.Id = entity.Id;
@@ -47,14 +47,14 @@ namespace StackOverHead.Question.Infra.Factories.Impl
         {
             entity.Answers.ToList().ForEach(answer =>
             {
-                var newAnswer = _answerFactory.ToDTO(answer);
+                var newAnswer = _answerFactory.Execute(answer);
                 if (newAnswer.Id == Guid.Empty)
                     newAnswer.Id = Guid.NewGuid();
                 model.Answers.Add(newAnswer);
             });
         }
 
-        public QuestionEntity ToEntity(QuestionModel data)
+        public QuestionEntity Execute(QuestionModel data)
         {
             var entity = new QuestionEntity(
                 data.Title,
@@ -74,15 +74,15 @@ namespace StackOverHead.Question.Infra.Factories.Impl
                 switch (answerKind)
                 {
                     case AnswerKind.Answer:
-                        var newAnswer = _answerFactory.ToEntity(answer);
+                        var newAnswer = _answerFactory.Execute(answer);
                         entity.AddAnswer(newAnswer);
                         break;
                     case AnswerKind.QuestionBody:
-                        var questionBody = _answerFactory.ToEntity(answer);
+                        var questionBody = _answerFactory.Execute(answer);
                         entity.SetQuestionBody(questionBody);
                         break;
                     case AnswerKind.Comment:
-                        var newComment = _commentFactory.ToEntity(answer);
+                        var newComment = _commentFactory.Execute(answer);
                         entity.AddComment(newComment);
                         break;
                 }

@@ -3,6 +3,7 @@ using StackOverHead.LibCommon.Entities;
 
 namespace StackOverHead.LibCommon.Repositories
 {
+
     public class EntityDTOConverterDefault<TEntity, TDTO> : IEntityDTOConverter<TEntity, TDTO>
         where TEntity : Entity
         where TDTO : class
@@ -13,14 +14,15 @@ namespace StackOverHead.LibCommon.Repositories
         {
             _mapper = mapper;
         }
-        public TDTO ToDTO(TEntity entity)
+
+        public TDTO Execute(TEntity from)
         {
-            return _mapper.Map<TDTO>(entity);
+            return _mapper.Map<TDTO>(from);
         }
 
-        public TEntity ToEntity(TDTO data)
+        public TEntity Execute(TDTO from)
         {
-            return _mapper.Map<TEntity>(data);
+            return _mapper.Map<TEntity>(from);
         }
     }
 }
