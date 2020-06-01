@@ -1,0 +1,52 @@
+#estágio 1 - base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
+RUN mkdir /app
+WORKDIR /app
+EXPOSE 80/tcp
+EXPOSE 5000/tcp
+EXPOSE 5001/tcp
+
+#estágio 2 - publish
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS dotnet_restore
+WORKDIR /app
+RUN apt-get update -y
+RUN curl -sL https://deb.nodesource.com/setup_13.x | bash --debug
+RUN apt-get install nodejs -yq
+COPY ./__tests__/StackOverHead.LibCommon.Tests/StackOverHead.LibCommon.Tests.csproj ./__tests__/StackOverHead.LibCommon.Tests/StackOverHead.LibCommon.Tests.csproj
+COPY ./__tests__/StackOverHead.CrossCutting.Tests/StackOverHead.CrossCutting.Tests.csproj ./__tests__/StackOverHead.CrossCutting.Tests/StackOverHead.CrossCutting.Tests.csproj
+COPY ./__tests__/StackOverHead.Auth.App.Tests/StackOverHead.Auth.App.Tests.csproj ./__tests__/StackOverHead.Auth.App.Tests/StackOverHead.Auth.App.Tests.csproj
+COPY ./__tests__/StackOverHead.Auth.Domain.Tests/StackOverHead.Auth.Domain.Tests.csproj ./__tests__/StackOverHead.Auth.Domain.Tests/StackOverHead.Auth.Domain.Tests.csproj
+COPY ./__tests__/StackOverHead.Auth.Infra.Tests/StackOverHead.Auth.Infra.Tests.csproj ./__tests__/StackOverHead.Auth.Infra.Tests/StackOverHead.Auth.Infra.Tests.csproj
+COPY ./__tests__/StackOverHead.Question.App.Tests/StackOverHead.Question.App.Tests.csproj ./__tests__/StackOverHead.Question.App.Tests/StackOverHead.Question.App.Tests.csproj
+COPY ./__tests__/StackOverHead.Question.Domain.Tests/StackOverHead.Question.Domain.Tests.csproj ./__tests__/StackOverHead.Question.Domain.Tests/StackOverHead.Question.Domain.Tests.csproj
+COPY ./__tests__/StackOverHead.Question.Infra.Tests/StackOverHead.Question.Infra.Tests.csproj ./__tests__/StackOverHead.Question.Infra.Tests/StackOverHead.Question.Infra.Tests.csproj
+COPY ./src/StackOverHead.LibCommon/StackOverHead.LibCommon.csproj ./src/StackOverHead.LibCommon/StackOverHead.LibCommon.csproj
+COPY ./src/StackOverHead.CrossCutting/StackOverHead.CrossCutting.csproj ./src/StackOverHead.CrossCutting/StackOverHead.CrossCutting.csproj
+COPY ./src/StackOverHead.Auth.App/StackOverHead.Auth.App.csproj ./src/StackOverHead.Auth.App/StackOverHead.Auth.App.csproj
+COPY ./src/StackOverHead.Auth.Domain/StackOverHead.Auth.Domain.csproj ./src/StackOverHead.Auth.Domain/StackOverHead.Auth.Domain.csproj
+COPY ./src/StackOverHead.Auth.Infra/StackOverHead.Auth.Infra.csproj ./src/StackOverHead.Auth.Infra/StackOverHead.Auth.Infra.csproj
+COPY ./src/StackOverHead.Question.App/StackOverHead.Question.App.csproj ./src/StackOverHead.Question.App/StackOverHead.Question.App.csproj
+COPY ./src/StackOverHead.Question.Domain/StackOverHead.Question.Domain.csproj ./src/StackOverHead.Question.Domain/StackOverHead.Question.Domain.csproj
+COPY ./src/StackOverHead.Question.Infra/StackOverHead.Question.Infra.csproj ./src/StackOverHead.Question.Infra/StackOverHead.Question.Infra.csproj
+COPY ./src/StackOverHead.Web/StackOverHead.Web.csproj ./src/StackOverHead.Web/StackOverHead.Web.csproj
+COPY ./StackOverHead.sln .
+RUN dotnet restore
+
+FROM dotnet_restore AS fullcode
+WORKDIR /app
+COPY . . 
+
+FROM fullcode AS test
+WORKDIR /app
+RUN dotnet test
+
+FROM fullcode as publish
+WORKDIR /app
+RUN dotnet publish -c Release -o dist
+
+FROM base AS final
+WORKDIR /dist
+COPY --from=publish /app/dist .
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:80
+ENTRYPOINT ["dotnet","dist/StackOverHead.Web.dll"]
