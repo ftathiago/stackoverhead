@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
+    <ProjectGuid>00977205-958A-4539-A3EB-E5771B4333BB</ProjectGuid>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Coverlet.MSBuild" Version="2.9.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,12 +17,10 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\StackOverHead.Web\StackOverHead.Web.csproj" />
     <ProjectReference Include="..\..\src\StackOverHead.Question.App\StackOverHead.Question.App.csproj" />
     <ProjectReference Include="..\..\src\StackOverHead.Auth.App\StackOverHead.Auth.App.csproj" />
     <ProjectReference Include="..\..\src\StackOverHead.CrossCutting\StackOverHead.CrossCutting.csproj" />
   </ItemGroup>
-
 </Project>
