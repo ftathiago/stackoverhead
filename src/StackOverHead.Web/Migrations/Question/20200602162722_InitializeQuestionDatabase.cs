@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace StackOverHead.Web.Migrations
+namespace StackOverHead.Web.Migrations.Question
 {
-    public partial class InitializeQuestionDataBase : Migration
+    public partial class InitializeQuestionDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

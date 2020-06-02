@@ -2,18 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StackOverHead.Question.Infra.Context;
 
-namespace StackOverHead.Web.Migrations
+namespace StackOverHead.Web.Migrations.Question
 {
     [DbContext(typeof(StackOverHeadQuestionDbContext))]
-    [Migration("20200601223716_InitializeQuestionDataBase")]
-    partial class InitializeQuestionDataBase
+    partial class StackOverHeadQuestionDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
