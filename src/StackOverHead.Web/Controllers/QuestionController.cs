@@ -24,16 +24,6 @@ namespace StackOverHead.Web.Controllers
             _user = user;
         }
 
-        [HttpPost]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody] AskQuestion question)
-        {
-            var id = await _question.Add(question);
-
-            return GetResponse<Guid>(id);
-        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQuestionById([FromRoute] Guid id)
@@ -46,6 +36,27 @@ namespace StackOverHead.Web.Controllers
                     response.User.Name = user.FullName;
             }
             return GetResponse<QuestionResponse>(response);
+        }
+
+        [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Post([FromBody] AskQuestion question)
+        {
+            var id = await _question.Add(question);
+
+            return GetResponse<Guid>(id);
+        }
+
+        [HttpPost("{questionId}/answers")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public IActionResult AddAnswer(Guid questionId, [FromBody] AnswerRequest request)
+        {
+            request.UserId = Guid.NewGuid();
+            return Ok(request);
         }
     }
 }
