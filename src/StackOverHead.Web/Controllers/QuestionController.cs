@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 using StackOverHead.Auth.App.Services;
 using StackOverHead.Question.App.Models;
 using StackOverHead.Question.App.Services;
@@ -14,15 +15,12 @@ namespace StackOverHead.Web.Controllers
     public class QuestionController : ApiController
     {
         private readonly IQuestionService _question;
-        private readonly ILogger<QuestionController> _logger;
         private readonly IUserService _user;
 
         public QuestionController(IQuestionService question,
-            ILogger<QuestionController> logger,
             IUserService user)
         {
             _question = question;
-            _logger = logger;
             _user = user;
         }
 
@@ -34,7 +32,7 @@ namespace StackOverHead.Web.Controllers
         {
             var id = await _question.Add(question);
 
-            return GetResponse<Guid>(id);// Created("/api/question", new { id });
+            return GetResponse<Guid>(id);
         }
 
         [HttpGet("{id}")]

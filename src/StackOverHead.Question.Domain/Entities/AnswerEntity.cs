@@ -13,7 +13,7 @@ namespace StackOverHead.Question.Domain.Entities
         public AnswerKind Kind { get; private set; }
         public List<CommentEntity> Comments { get => _comments; }
         public Entity Parent { get; private set; }
-        private List<CommentEntity> _comments;
+        private readonly List<CommentEntity> _comments;
 
         public AnswerEntity(string body, Guid userId, AnswerKind kind, int votes)
         {

@@ -4,7 +4,7 @@ using StackOverHead.Question.Infra.Models;
 
 namespace StackOverHead.Question.Infra.Factories
 {
-    public interface ICommentEntityToModelFactory : IEntityDTOConverter<CommentEntity, AnswerModel>
+    public interface ICommentEntityToModelFactory : IEntityDtoConverter<CommentEntity, AnswerModel>
     {
 
     }

@@ -6,23 +6,23 @@ namespace StackOverHead.Question.Infra.Factories.Impl
 {
     public class CommentEntityToModelFactory : ICommentEntityToModelFactory
     {
-        public AnswerModel Execute(CommentEntity entity)
+        public AnswerModel Execute(CommentEntity from)
         {
             var model = new AnswerModel();
             model.KindOf = (int)AnswerKind.Comment;
-            model.Id = entity.Id;
-            model.Body = entity.Body;
-            model.AnswerId = entity.Parent.Id;
+            model.Id = from.Id;
+            model.Body = from.Body;
+            model.AnswerId = from.Parent.Id;
             return model;
         }
 
-        public CommentEntity Execute(AnswerModel data)
+        public CommentEntity Execute(AnswerModel from)
         {
             var entity = new CommentEntity(
-                data.UserId,
-                data.Body
+                from.UserId,
+                from.Body
             );
-            entity.DefineId(data.Id);
+            entity.DefineId(from.Id);
             return entity;
         }
     }

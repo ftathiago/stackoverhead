@@ -7,7 +7,7 @@ namespace StackOverHead.Auth.App.Services.Impl
 {
     public class UserService : ServiceBase, IUserService
     {
-        private IUserRepository _repository;
+        private readonly IUserRepository _repository;
 
         public UserService(IUserRepository repository)
         {

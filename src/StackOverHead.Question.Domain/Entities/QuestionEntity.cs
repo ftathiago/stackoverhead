@@ -11,9 +11,9 @@ namespace StackOverHead.Question.Domain.Entities
         public Guid UserId { get; private set; }
         public string Tags { get; private set; }
         public IEnumerable<CommentEntity> Comments { get => _comments; }
-        private List<CommentEntity> _comments;
+        private readonly List<CommentEntity> _comments;
         public IEnumerable<AnswerEntity> Answers { get => _answers; }
-        private List<AnswerEntity> _answers;
+        private readonly List<AnswerEntity> _answers;
         public AnswerEntity QuestionBody { get; private set; }
 
         public QuestionEntity(string title, Guid userId, string tags)

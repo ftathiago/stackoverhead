@@ -6,24 +6,24 @@ namespace StackOverHead.Question.App.Factories.Impl
 {
     public class QuestionResponseFactory : IQuestionResponseFactory
     {
-        public QuestionResponse Execute(QuestionEntity entity)
+        public QuestionResponse Execute(QuestionEntity from)
         {
             var response = new QuestionResponse
             {
-                Id = entity.Id,
-                Title = entity.Title,
-                Body = entity.QuestionBody?.Body,
-                Tags = entity.Tags,
-                Votes = entity.QuestionBody.Votes,
+                Id = from.Id,
+                Title = from.Title,
+                Body = from.QuestionBody?.Body,
+                Tags = from.Tags,
+                Votes = from.QuestionBody.Votes,
                 User = new UserResponse
                 {
-                    Id = entity.UserId,
+                    Id = from.UserId,
                     Name = "Not especified yet"
                 }
             };
-            LoadAnswersToResponse(entity, response);
+            LoadAnswersToResponse(from, response);
 
-            LoadCommentsToResponse(entity, response);
+            LoadCommentsToResponse(from, response);
 
             return response;
         }

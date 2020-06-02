@@ -11,9 +11,9 @@ namespace StackOverHead.Web.Extensions
         {
             var info = new OpenApiInfo
             {
-                Title = "Theós Book Store",
+                Title = "StackOverHead",
                 Version = "v1",
-                Description = "Test for .Net position",
+                Description = "A Knowledge Management site",
                 Contact = new OpenApiContact
                 {
                     Name = "Francisco Thiago de Almeida",

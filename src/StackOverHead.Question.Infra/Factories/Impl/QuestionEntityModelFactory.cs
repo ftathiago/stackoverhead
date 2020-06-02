@@ -19,16 +19,29 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             _commentFactory = commentFactory;
         }
 
-        public QuestionModel Execute(QuestionEntity entity)
+        public QuestionModel Execute(QuestionEntity from)
         {
             var model = new QuestionModel();
-            model.Id = entity.Id;
-            model.Title = entity.Title;
-            model.UserId = entity.UserId;
-            model.Tags = entity.Tags;
-            LoadQuestionBodyFromEntityToModel(entity, model);
-            LoadAnswerCommentFromEntityToModel(entity, model);
+            model.Id = from.Id;
+            model.Title = from.Title;
+            model.UserId = from.UserId;
+            model.Tags = from.Tags;
+            LoadQuestionBodyFromEntityToModel(from, model);
+            LoadAnswerCommentFromEntityToModel(from, model);
             return model;
+        }
+
+
+        public QuestionEntity Execute(QuestionModel from)
+        {
+            var entity = new QuestionEntity(
+                from.Title,
+                from.UserId,
+                from.Tags
+            );
+            entity.DefineId(from.Id);
+            LoadAnswerFromModelToEntity(entity, from);
+            return entity;
         }
 
         private void LoadQuestionBodyFromEntityToModel(QuestionEntity entity, QuestionModel model)
@@ -52,18 +65,6 @@ namespace StackOverHead.Question.Infra.Factories.Impl
                     newAnswer.Id = Guid.NewGuid();
                 model.Answers.Add(newAnswer);
             });
-        }
-
-        public QuestionEntity Execute(QuestionModel data)
-        {
-            var entity = new QuestionEntity(
-                data.Title,
-                data.UserId,
-                data.Tags
-            );
-            entity.DefineId(data.Id);
-            LoadAnswerFromModelToEntity(entity, data);
-            return entity;
         }
 
         private void LoadAnswerFromModelToEntity(QuestionEntity entity, QuestionModel data)

@@ -3,7 +3,7 @@ using StackOverHead.LibCommon.Entities;
 namespace StackOverHead.LibCommon.Repositories
 {
     public interface IConvertFromEntity<TEntity, TData>
-        where TEntity : class
+        where TEntity : Entity
         where TData : class
     {
         TData Execute(TEntity from);

@@ -31,10 +31,5 @@ namespace StackOverHead.LibCommon.Entities
         {
             return (GetType().GetHashCode() * 42) + Id.GetHashCode();
         }
-
-        // public override string ToString()
-        // {
-        //     return $"{this.GetType().Name} Id[{Id.ToString()}]";
-        // }
     }
 }
