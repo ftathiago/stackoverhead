@@ -1,7 +1,8 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
+
 using MediatR;
+
 using StackOverHead.Question.App.Factories;
 using StackOverHead.Question.App.Models;
 using StackOverHead.Question.Domain.Command;
@@ -36,9 +37,9 @@ namespace StackOverHead.Question.App.Services.Impl
             return command.Id;
         }
 
-        public async Task<QuestionResponse> GetById(Guid Id)
+        public async Task<QuestionResponse> GetById(Guid id)
         {
-            var question = await _repository.GetByIdAsync(Id);
+            var question = await _repository.GetByIdAsync(id);
             if (question == null)
                 return new QuestionResponse();
             var response = _responseFactory.Execute(question);

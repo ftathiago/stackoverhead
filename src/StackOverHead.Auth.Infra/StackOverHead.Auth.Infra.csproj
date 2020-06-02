@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
     <ProjectReference Include="..\StackOverHead.Auth.Domain\StackOverHead.Auth.Domain.csproj" />
   </ItemGroup>
@@ -19,6 +18,6 @@
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ProjectGuid>B0010699-3908-4A39-A727-8C2BAC327F03</ProjectGuid>
   </PropertyGroup>
-
 </Project>

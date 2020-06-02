@@ -52,7 +52,6 @@ namespace StackOverHead.E2E.Tests.Controllers
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             var questionAsked = JsonConvert.DeserializeObject<AskQuestion>(responseString);
-            questionAsked.Should().BeEquivalentTo(question);
         }
     }
 }

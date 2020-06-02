@@ -4,6 +4,6 @@ using StackOverHead.Question.Infra.Models;
 
 namespace StackOverHead.Question.Infra.Factories
 {
-    public interface IAnswerEntityModelFactory : IEntityDTOConverter<AnswerEntity, AnswerModel>
+    public interface IAnswerEntityModelFactory : IEntityDtoConverter<AnswerEntity, AnswerModel>
     { }
 }

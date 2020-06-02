@@ -12,7 +12,7 @@ namespace StackOverHead.Web.Tests.Fixtures
             if (service == null)
                 service = MockQuestionService();
 
-            return new QuestionController(service.Object, null, null);
+            return new QuestionController(service.Object, null);
         }
 
         public Mock<IQuestionService> MockQuestionService()

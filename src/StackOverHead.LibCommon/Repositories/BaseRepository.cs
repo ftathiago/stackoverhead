@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using AutoMapper;
-
 using StackOverHead.LibCommon.Entities;
-using System.Threading.Tasks;
 
 namespace StackOverHead.LibCommon.Repositories
 {
@@ -17,9 +15,9 @@ namespace StackOverHead.LibCommon.Repositories
     {
         protected readonly DbContext _context;
         protected readonly DbSet<TDTO> DbSet;
-        protected readonly IEntityDTOConverter<TEntity, TDTO> _factory;
+        protected readonly IEntityDtoConverter<TEntity, TDTO> _factory;
 
-        protected BaseRepository(DbContext dbContext, IEntityDTOConverter<TEntity, TDTO> factory)
+        protected BaseRepository(DbContext dbContext, IEntityDtoConverter<TEntity, TDTO> factory)
         {
             _context = dbContext;
             DbSet = _context.Set<TDTO>();

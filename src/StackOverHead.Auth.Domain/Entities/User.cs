@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 using StackOverHead.Auth.Domain.ValueObjects;
 using StackOverHead.LibCommon.Entities;
 

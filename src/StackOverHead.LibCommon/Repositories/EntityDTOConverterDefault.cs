@@ -4,13 +4,13 @@ using StackOverHead.LibCommon.Entities;
 namespace StackOverHead.LibCommon.Repositories
 {
 
-    public class EntityDTOConverterDefault<TEntity, TDTO> : IEntityDTOConverter<TEntity, TDTO>
+    public class EntityDtoConverterDefault<TEntity, TDTO> : IEntityDtoConverter<TEntity, TDTO>
         where TEntity : Entity
         where TDTO : class
     {
         private readonly IMapper _mapper;
 
-        public EntityDTOConverterDefault(IMapper mapper)
+        public EntityDtoConverterDefault(IMapper mapper)
         {
             _mapper = mapper;
         }

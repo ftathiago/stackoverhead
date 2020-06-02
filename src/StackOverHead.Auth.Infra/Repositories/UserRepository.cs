@@ -1,7 +1,5 @@
 using System.Linq;
 
-using AutoMapper;
-
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Domain.Repositories;
 using StackOverHead.Auth.Infra.Context;

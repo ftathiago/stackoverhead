@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
 using AutoMapper;
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Domain.ValueObjects;

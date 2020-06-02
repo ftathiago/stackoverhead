@@ -1,5 +1,4 @@
 using StackOverHead.Auth.App.Models;
-using StackOverHead.Auth.App.Services;
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Domain.Repositories;
 using StackOverHead.Auth.Domain.ValueObjects;

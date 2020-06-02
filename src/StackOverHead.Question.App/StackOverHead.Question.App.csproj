@@ -1,16 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
     <ProjectReference Include="..\StackOverHead.Question.Domain\StackOverHead.Question.Domain.csproj" />
     <ProjectReference Include="..\StackOverHead.LibCommon\StackOverHead.LibCommon.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="MediatR" Version="8.0.1" />
   </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ProjectGuid>047314D8-01A4-4523-AD1C-D400F09271E5</ProjectGuid>
   </PropertyGroup>
-
 </Project>

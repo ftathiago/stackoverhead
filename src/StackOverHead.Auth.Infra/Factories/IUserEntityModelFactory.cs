@@ -1,16 +1,15 @@
 using AutoMapper;
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Infra.Models;
-using StackOverHead.LibCommon.Entities;
 using StackOverHead.LibCommon.Repositories;
 
 namespace StackOverHead.Auth.Infra.Factories
 {
-    public interface IUserEntityModelFactory : IEntityDTOConverter<User, UserModel>
+    public interface IUserEntityModelFactory : IEntityDtoConverter<User, UserModel>
     { }
 
     public class UserEntityModelFactory :
-        EntityDTOConverterDefault<User, UserModel>,
+        EntityDtoConverterDefault<User, UserModel>,
         IUserEntityModelFactory
     {
         public UserEntityModelFactory(IMapper mapper) : base(mapper)
