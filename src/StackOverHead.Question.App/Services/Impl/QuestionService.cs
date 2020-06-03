@@ -45,5 +45,10 @@ namespace StackOverHead.Question.App.Services.Impl
             var response = _responseFactory.Execute(question);
             return response;
         }
+
+        public Task<Guid> RegisterAnswer(Guid questionId, AnswerRequest request)
+        {
+            return Task.FromResult<Guid>(Guid.NewGuid());
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace StackOverHead.Question.App.Services
 {
     public interface IQuestionService
     {
-        Task<Guid> Add(AskQuestion question);
-
         Task<QuestionResponse> GetById(Guid id);
+        Task<Guid> Add(AskQuestion question);
+        Task<Guid> RegisterAnswer(Guid questionId, AnswerRequest request);
     }
 }
