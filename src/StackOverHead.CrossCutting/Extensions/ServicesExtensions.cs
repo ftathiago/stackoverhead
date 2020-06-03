@@ -32,6 +32,7 @@ namespace StackOverHead.CrossCutting.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
             return services;
         }
 
@@ -53,6 +54,7 @@ namespace StackOverHead.CrossCutting.Extensions
             services.AddTransient<IQuestionResponseFactory, QuestionResponseFactory>();
             //.Domain
             services.AddScoped<IRequestHandler<AskQuestionCommand, bool>, QuestionCommandHandler>();
+            services.AddScoped<IRequestHandler<AnswerCommand, bool>, AnswerCommandHandler>();
             //.Infra
             services.AddTransient<IQuestionEntityModelFactory, QuestionEntityModelFactory>();
             services.AddTransient<IAnswerEntityModelFactory, AnswerEntityModelFactory>();
