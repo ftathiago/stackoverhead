@@ -58,6 +58,8 @@ namespace StackOverHead.Web.Controllers
             {
                 return GetModelErrorResponse();
             }
+            request.QuestionId = questionId;
+            // request.UserId = extract from token payload
 
             var answerId = await _question.RegisterAnswer(questionId, request);
 
