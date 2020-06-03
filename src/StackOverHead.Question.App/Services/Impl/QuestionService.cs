@@ -25,6 +25,16 @@ namespace StackOverHead.Question.App.Services.Impl
             _repository = repository;
             _responseFactory = responseFactory;
         }
+
+        public async Task<QuestionResponse> GetById(Guid id)
+        {
+            var question = await _repository.GetByIdAsync(id);
+            if (question == null)
+                return new QuestionResponse();
+            var response = _responseFactory.Execute(question);
+            return response;
+        }
+
         public async Task<Guid> Add(AskQuestion question)
         {
             var command = new AskQuestionCommand();
@@ -37,18 +47,18 @@ namespace StackOverHead.Question.App.Services.Impl
             return command.Id;
         }
 
-        public async Task<QuestionResponse> GetById(Guid id)
+        public async Task<Guid> RegisterAnswer(Guid questionId, AnswerRequest request)
         {
-            var question = await _repository.GetByIdAsync(id);
-            if (question == null)
-                return new QuestionResponse();
-            var response = _responseFactory.Execute(question);
-            return response;
-        }
-
-        public Task<Guid> RegisterAnswer(Guid questionId, AnswerRequest request)
-        {
-            return Task.FromResult<Guid>(Guid.NewGuid());
+            var answerId = Guid.NewGuid();
+            var command = new AnswerCommand
+            {
+                Id = answerId,
+                Body = request.Body,
+                UserId = request.UserId,
+                QuestionId = request.QuestionId
+            };
+            await _mediator.Send(command);
+            return answerId;
         }
     }
 }
