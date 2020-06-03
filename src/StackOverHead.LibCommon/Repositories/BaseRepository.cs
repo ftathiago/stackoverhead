@@ -67,8 +67,8 @@ namespace StackOverHead.LibCommon.Repositories
             var data = DbSet.Find(id);
             if (data == null)
                 return null;
-            _context.Entry(data).State = EntityState.Detached;
             var entity = _factory.Execute(data);
+            _context.Entry(data).State = EntityState.Detached;
             return entity;
         }
 
