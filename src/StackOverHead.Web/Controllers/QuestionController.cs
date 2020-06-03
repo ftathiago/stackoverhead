@@ -17,7 +17,8 @@ namespace StackOverHead.Web.Controllers
         private readonly IQuestionService _question;
         private readonly IUserService _user;
 
-        public QuestionController(IQuestionService question,
+        public QuestionController(
+            IQuestionService question,
             IUserService user)
         {
             _question = question;
@@ -61,9 +62,28 @@ namespace StackOverHead.Web.Controllers
             request.QuestionId = questionId;
             // request.UserId = extract from token payload
 
-            var answerId = await _question.RegisterAnswer(questionId, request);
+            var answerId = await _question.RegisterAnswer(request);
 
             return GetResponse<Guid>(answerId, StatusCodes.Status201Created);
+        }
+
+        [HttpPost("{questionId}/answers/{answerId}/comment")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddAnswerComment(Guid questionId, Guid answerId, [FromBody] AnswerCommentRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+            request.QuestionId = questionId;
+            request.AnswerId = answerId;
+            // request.UserId = extract from token payload
+
+            var commentId = await _question.RegisterAnswerComment(request);
+
+            return GetResponse<Guid>(commentId, StatusCodes.Status201Created);
         }
     }
 }
