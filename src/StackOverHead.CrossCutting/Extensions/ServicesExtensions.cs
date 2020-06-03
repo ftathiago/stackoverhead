@@ -55,6 +55,7 @@ namespace StackOverHead.CrossCutting.Extensions
             //.Domain
             services.AddScoped<IRequestHandler<AskQuestionCommand, bool>, QuestionCommandHandler>();
             services.AddScoped<IRequestHandler<AnswerCommand, bool>, AnswerCommandHandler>();
+            services.AddScoped<IRequestHandler<RegisterAnswerCommentCommand, bool>, CommentCommandHandler>();
             //.Infra
             services.AddTransient<IQuestionEntityModelFactory, QuestionEntityModelFactory>();
             services.AddTransient<IAnswerEntityModelFactory, AnswerEntityModelFactory>();
