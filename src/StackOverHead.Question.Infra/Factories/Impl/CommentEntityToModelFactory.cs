@@ -13,6 +13,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             model.Id = from.Id;
             model.Body = from.Body;
             model.AnswerId = from.Parent.Id;
+            model.UserId = from.UserId;
             return model;
         }
 
