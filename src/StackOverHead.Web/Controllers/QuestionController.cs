@@ -24,7 +24,6 @@ namespace StackOverHead.Web.Controllers
             _user = user;
         }
 
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQuestionById([FromRoute] Guid id)
         {
@@ -35,7 +34,7 @@ namespace StackOverHead.Web.Controllers
                 if (user != null)
                     response.User.Name = user.FullName;
             }
-            return GetResponse<QuestionResponse>(response);
+            return GetResponse<QuestionResponse>(response, StatusCodes.Status200OK);
         }
 
         [HttpPost]
@@ -46,17 +45,18 @@ namespace StackOverHead.Web.Controllers
         {
             var id = await _question.Add(question);
 
-            return GetResponse<Guid>(id);
+            return GetResponse<Guid>(id, StatusCodes.Status201Created);
         }
 
         [HttpPost("{questionId}/answers")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
-        public IActionResult AddAnswer(Guid questionId, [FromBody] AnswerRequest request)
+        public async Task<IActionResult> AddAnswer(Guid questionId, [FromBody] AnswerRequest request)
         {
-            request.UserId = Guid.NewGuid();
-            return Ok(request);
+            var answerId = await _question.RegisterAnswer(questionId, request);
+
+            return GetResponse<Guid>(answerId, StatusCodes.Status201Created);
         }
     }
 }
