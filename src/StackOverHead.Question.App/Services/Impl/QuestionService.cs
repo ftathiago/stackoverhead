@@ -47,7 +47,7 @@ namespace StackOverHead.Question.App.Services.Impl
             return command.Id;
         }
 
-        public async Task<Guid> RegisterAnswer(Guid questionId, AnswerRequest request)
+        public async Task<Guid> RegisterAnswer(AnswerRequest request)
         {
             var answerId = Guid.NewGuid();
             var command = new AnswerCommand
@@ -59,6 +59,21 @@ namespace StackOverHead.Question.App.Services.Impl
             };
             await _mediator.Send(command);
             return answerId;
+        }
+
+        public async Task<Guid> RegisterAnswerComment(AnswerCommentRequest request)
+        {
+            var commentId = Guid.NewGuid();
+            var command = new RegisterAnswerCommentCommand
+            {
+                Id = commentId,
+                Body = request.Body,
+                UserId = request.UserId,
+                QuestionId = request.QuestionId,
+                AnswerId = request.AnswerId
+            };
+            await _mediator.Send(command);
+            return commentId;
         }
     }
 }
