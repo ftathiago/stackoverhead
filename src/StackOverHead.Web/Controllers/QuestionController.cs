@@ -54,6 +54,11 @@ namespace StackOverHead.Web.Controllers
         [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddAnswer(Guid questionId, [FromBody] AnswerRequest request)
         {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+
             var answerId = await _question.RegisterAnswer(questionId, request);
 
             return GetResponse<Guid>(answerId, StatusCodes.Status201Created);
