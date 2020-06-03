@@ -22,6 +22,7 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             model.KindOf = (int)from.Kind;
             model.QuestionId = from.Parent.Id;
             model.Body = from.Body;
+            model.UserId = from.UserId;
             LoadCommentEntityToModel(from, model);
             return model;
         }
@@ -54,7 +55,5 @@ namespace StackOverHead.Question.Infra.Factories.Impl
                 model.Comments.Add(newComment);
             });
         }
-
-
     }
 }

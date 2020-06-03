@@ -24,17 +24,6 @@ namespace StackOverHead.Web.Controllers
             _user = user;
         }
 
-        [HttpPost]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody] AskQuestion question)
-        {
-            var id = await _question.Add(question);
-
-            return GetResponse<Guid>(id);
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQuestionById([FromRoute] Guid id)
         {
@@ -45,7 +34,36 @@ namespace StackOverHead.Web.Controllers
                 if (user != null)
                     response.User.Name = user.FullName;
             }
-            return GetResponse<QuestionResponse>(response);
+            return GetResponse<QuestionResponse>(response, StatusCodes.Status200OK);
+        }
+
+        [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Post([FromBody] AskQuestion question)
+        {
+            var id = await _question.Add(question);
+
+            return GetResponse<Guid>(id, StatusCodes.Status201Created);
+        }
+
+        [HttpPost("{questionId}/answers")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddAnswer(Guid questionId, [FromBody] AnswerRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+            request.QuestionId = questionId;
+            // request.UserId = extract from token payload
+
+            var answerId = await _question.RegisterAnswer(questionId, request);
+
+            return GetResponse<Guid>(answerId, StatusCodes.Status201Created);
         }
     }
 }
