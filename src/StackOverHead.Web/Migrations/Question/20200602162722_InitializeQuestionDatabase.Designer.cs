@@ -10,8 +10,8 @@ using StackOverHead.Question.Infra.Context;
 namespace StackOverHead.Web.Migrations.Question
 {
     [DbContext(typeof(StackOverHeadQuestionDbContext))]
-    [Migration("20200601000604_InitializeQuestionDataBase")]
-    partial class InitializeQuestionDataBase
+    [Migration("20200602162722_InitializeQuestionDatabase")]
+    partial class InitializeQuestionDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,25 +94,9 @@ namespace StackOverHead.Web.Migrations.Question
                     b.Property<int>("ViewCount")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Votes")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("QUESTION");
-                });
-
-            modelBuilder.Entity("StackOverHead.Question.Infra.Models.QuestionUserVotesModel", b =>
-                {
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("QuestionId", "UserId");
-
-                    b.ToTable("QUESTIONUSERVOTES");
                 });
 
             modelBuilder.Entity("StackOverHead.Question.Infra.Models.AnswerModel", b =>
@@ -131,15 +115,6 @@ namespace StackOverHead.Web.Migrations.Question
                     b.HasOne("StackOverHead.Question.Infra.Models.AnswerModel", "Answer")
                         .WithMany("UserVotes")
                         .HasForeignKey("AnswerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("StackOverHead.Question.Infra.Models.QuestionUserVotesModel", b =>
-                {
-                    b.HasOne("StackOverHead.Question.Infra.Models.QuestionModel", "Question")
-                        .WithMany("UserVotes")
-                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

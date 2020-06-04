@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 using StackOverHead.Auth.App.Services;
 using StackOverHead.Question.App.Models;
 using StackOverHead.Question.App.Services;
@@ -14,27 +15,14 @@ namespace StackOverHead.Web.Controllers
     public class QuestionController : ApiController
     {
         private readonly IQuestionService _question;
-        private readonly ILogger<QuestionController> _logger;
         private readonly IUserService _user;
 
-        public QuestionController(IQuestionService question,
-            ILogger<QuestionController> logger,
+        public QuestionController(
+            IQuestionService question,
             IUserService user)
         {
             _question = question;
-            _logger = logger;
             _user = user;
-        }
-
-        [HttpPost]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody] AskQuestion question)
-        {
-            var id = await _question.Add(question);
-
-            return GetResponse<Guid>(id);// Created("/api/question", new { id });
         }
 
         [HttpGet("{id}")]
@@ -47,7 +35,72 @@ namespace StackOverHead.Web.Controllers
                 if (user != null)
                     response.User.Name = user.FullName;
             }
-            return GetResponse<QuestionResponse>(response);
+            return GetResponse<QuestionResponse>(response, StatusCodes.Status200OK);
+        }
+
+        [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Post([FromBody] AskQuestion question)
+        {
+            var id = await _question.Add(question);
+
+            return GetResponse<Guid>(id, StatusCodes.Status201Created);
+        }
+
+        [HttpPost("{questionId}/comment/")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddQuestionComment(Guid questionId, [FromBody] QuestionCommentRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+            request.QuestionId = questionId;
+
+            var commentId = await _question.RegisterQuestionComment(request);
+
+            return GetResponse<Guid>(commentId, StatusCodes.Status201Created);
+        }
+
+        [HttpPost("{questionId}/answers")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddAnswer(Guid questionId, [FromBody] AnswerRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+            request.QuestionId = questionId;
+            // request.UserId = extract from token payload
+
+            var answerId = await _question.RegisterAnswer(request);
+
+            return GetResponse<Guid>(answerId, StatusCodes.Status201Created);
+        }
+
+        [HttpPost("{questionId}/answers/{answerId}/comment")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddAnswerComment(Guid questionId, Guid answerId, [FromBody] AnswerCommentRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+            request.QuestionId = questionId;
+            request.AnswerId = answerId;
+            // request.UserId = extract from token payload
+
+            var commentId = await _question.RegisterAnswerComment(request);
+
+            return GetResponse<Guid>(commentId, StatusCodes.Status201Created);
         }
     }
 }

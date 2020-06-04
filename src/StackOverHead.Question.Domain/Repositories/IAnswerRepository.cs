@@ -4,9 +4,8 @@ using StackOverHead.Question.Domain.Entities;
 
 namespace StackOverHead.Question.Domain.Repositories
 {
-    public interface IQuestionRepository : IBaseRepository<QuestionEntity>
+    public interface IAnswerRepository : IBaseRepository<AnswerEntity>
     {
         Task RegisterCommentAsync(CommentEntity comment);
     }
-
 }

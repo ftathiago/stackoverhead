@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using AutoMapper;
-
 using StackOverHead.LibCommon.Entities;
-using System.Threading.Tasks;
 
 namespace StackOverHead.LibCommon.Repositories
 {
@@ -17,9 +15,9 @@ namespace StackOverHead.LibCommon.Repositories
     {
         protected readonly DbContext _context;
         protected readonly DbSet<TDTO> DbSet;
-        protected readonly IEntityDTOConverter<TEntity, TDTO> _factory;
+        protected readonly IEntityDtoConverter<TEntity, TDTO> _factory;
 
-        protected BaseRepository(DbContext dbContext, IEntityDTOConverter<TEntity, TDTO> factory)
+        protected BaseRepository(DbContext dbContext, IEntityDtoConverter<TEntity, TDTO> factory)
         {
             _context = dbContext;
             DbSet = _context.Set<TDTO>();
@@ -28,7 +26,7 @@ namespace StackOverHead.LibCommon.Repositories
 
         public void Register(TEntity entity)
         {
-            var data = _factory.ToDTO(entity);
+            var data = _factory.Execute(entity);
             data = BeforePost(data, EntityState.Added);
             DbSet.Add(data);
             _context.SaveChanges();
@@ -36,7 +34,7 @@ namespace StackOverHead.LibCommon.Repositories
 
         public async Task RegisterAsync(TEntity entity)
         {
-            var data = _factory.ToDTO(entity);
+            var data = _factory.Execute(entity);
             data = BeforePost(data, EntityState.Added);
             await DbSet.AddAsync(data);
             await _context.SaveChangesAsync();
@@ -44,7 +42,7 @@ namespace StackOverHead.LibCommon.Repositories
 
         public void Update(TEntity entity)
         {
-            var data = _factory.ToDTO(entity);
+            var data = _factory.Execute(entity);
             _context.Entry(data).State = EntityState.Modified;
             data = BeforePost(data, EntityState.Modified);
             DbSet.Update(data);
@@ -54,7 +52,7 @@ namespace StackOverHead.LibCommon.Repositories
 
         public void Remove(TEntity entity)
         {
-            var data = _factory.ToDTO(entity);
+            var data = _factory.Execute(entity);
             DbSet.Remove(data);
             _context.SaveChanges();
         }
@@ -69,8 +67,8 @@ namespace StackOverHead.LibCommon.Repositories
             var data = DbSet.Find(id);
             if (data == null)
                 return null;
+            var entity = _factory.Execute(data);
             _context.Entry(data).State = EntityState.Detached;
-            var entity = _factory.ToEntity(data);
             return entity;
         }
 
@@ -79,14 +77,14 @@ namespace StackOverHead.LibCommon.Repositories
             var data = await DbSet.FindAsync(id);
             if (data == null)
                 return null;
-            var entity = _factory.ToEntity(data);
+            var entity = _factory.Execute(data);
             _context.Entry(data).State = EntityState.Detached;
             return entity;
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return DbSet.AsNoTracking().Select(dto => _factory.ToEntity(dto)).ToList();
+            return DbSet.AsNoTracking().Select(dto => _factory.Execute(dto)).ToList();
         }
 
         protected void Unchange<T>(T model)

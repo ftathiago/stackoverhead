@@ -4,6 +4,6 @@ using StackOverHead.Question.Domain.Entities;
 
 namespace StackOverHead.Question.App.Factories
 {
-    public interface IQuestionResponseFactory : IEntityDTOConverter<QuestionEntity, QuestionResponse>
+    public interface IQuestionResponseFactory : IConvertFromEntity<QuestionEntity, QuestionResponse>
     { }
 }

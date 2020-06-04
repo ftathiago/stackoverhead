@@ -47,7 +47,7 @@ namespace StackOverHead.Auth.Domain.ValueObjects
 
         public override bool IsValid()
         {
-            return (Hash.Count() > 0) && (Salt.Count() > 0);
+            return (Hash.Any() && Salt.Any());
         }
     }
 }

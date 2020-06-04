@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StackOverHead.Web.Migrations.Question
 {
-    public partial class InitializeQuestionDataBase : Migration
+    public partial class InitializeQuestionDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,6 @@ namespace StackOverHead.Web.Migrations.Question
                     ViewCount = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    Votes = table.Column<int>(nullable: false),
                     Tags = table.Column<string>(maxLength: 300, nullable: true)
                 },
                 constraints: table =>
@@ -55,24 +54,6 @@ namespace StackOverHead.Web.Migrations.Question
                 });
 
             migrationBuilder.CreateTable(
-                name: "QUESTIONUSERVOTES",
-                columns: table => new
-                {
-                    QuestionId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QUESTIONUSERVOTES", x => new { x.QuestionId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_QUESTIONUSERVOTES_QUESTION_QuestionId",
-                        column: x => x.QuestionId,
-                        principalTable: "QUESTION",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ANSWERUSERVOTES",
                 columns: table => new
                 {
@@ -105,9 +86,6 @@ namespace StackOverHead.Web.Migrations.Question
         {
             migrationBuilder.DropTable(
                 name: "ANSWERUSERVOTES");
-
-            migrationBuilder.DropTable(
-                name: "QUESTIONUSERVOTES");
 
             migrationBuilder.DropTable(
                 name: "ANSWER");

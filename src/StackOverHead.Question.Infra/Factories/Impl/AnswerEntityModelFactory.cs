@@ -15,43 +15,45 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             _commentFactory = commentFactory;
         }
 
-        public AnswerModel ToDTO(AnswerEntity entity)
+        public AnswerModel Execute(AnswerEntity from)
         {
             var model = new AnswerModel();
-            model.Id = entity.Id;
-            model.KindOf = (int)entity.Kind;
-            model.QuestionId = entity.Parent.Id;
-            model.Body = entity.Body;
-            LoadCommentEntityToModel(entity, model);
+            model.Id = from.Id;
+            model.KindOf = (int)from.Kind;
+            model.QuestionId = from.Parent.Id;
+            model.Body = from.Body;
+            model.UserId = from.UserId;
+            LoadCommentEntityToModel(from, model);
             return model;
+        }
+
+        public AnswerEntity Execute(AnswerModel from)
+        {
+            var entity = new AnswerEntity(
+                from.Body,
+                from.UserId,
+                (AnswerKind)from.KindOf,
+                from.Votes
+            );
+            entity.DefineId(from.Id);
+            from.Comments.ToList().ForEach(comment =>
+            {
+                var newComment = _commentFactory.Execute(comment);
+                newComment.SetParent(entity);
+                entity.AddComment(newComment);
+            });
+            return entity;
         }
 
         private void LoadCommentEntityToModel(AnswerEntity entity, AnswerModel model)
         {
             entity.Comments.ToList().ForEach(comment =>
             {
-                var newComment = _commentFactory.ToDTO(comment);
+                var newComment = _commentFactory.Execute(comment);
                 if (newComment.Id == Guid.Empty)
                     newComment.Id = Guid.NewGuid();
                 model.Comments.Add(newComment);
             });
-        }
-
-        public AnswerEntity ToEntity(AnswerModel data)
-        {
-            var entity = new AnswerEntity(
-                data.Body,
-                data.UserId,
-                (AnswerKind)data.KindOf
-            );
-            entity.DefineId(data.Id);
-            data.Comments.ToList().ForEach(comment =>
-            {
-                var newComment = _commentFactory.ToEntity(comment);
-                newComment.SetParent(entity);
-                entity.AddComment(newComment);
-            });
-            return entity;
         }
     }
 }

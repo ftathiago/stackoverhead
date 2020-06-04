@@ -1,7 +1,5 @@
 using System.Linq;
 
-using AutoMapper;
-
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Domain.Repositories;
 using StackOverHead.Auth.Infra.Context;
@@ -18,7 +16,7 @@ namespace StackOverHead.Auth.Infra.Repositories
         public User GetByEmail(string email)
         {
             var user = DbSet.Where(user => user.Email == email).FirstOrDefault();
-            User userEntity = _factory.ToEntity(user);
+            User userEntity = _factory.Execute(user);
             return userEntity;
         }
     }
