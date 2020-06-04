@@ -12,9 +12,17 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             model.KindOf = (int)AnswerKind.Comment;
             model.Id = from.Id;
             model.Body = from.Body;
-            model.AnswerId = from.Parent.Id;
             model.UserId = from.UserId;
+            ResolveParentId(model, from);
             return model;
+        }
+
+        private void ResolveParentId(AnswerModel model, CommentEntity from)
+        {
+            if (from.Parent is AnswerEntity)
+                model.AnswerId = from.Parent.Id;
+            if (from.Parent is QuestionEntity)
+                model.QuestionId = from.Parent.Id;
         }
 
         public CommentEntity Execute(AnswerModel from)
