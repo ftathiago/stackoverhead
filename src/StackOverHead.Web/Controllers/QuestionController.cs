@@ -49,6 +49,23 @@ namespace StackOverHead.Web.Controllers
             return GetResponse<Guid>(id, StatusCodes.Status201Created);
         }
 
+        [HttpPost("{questionId}/comment/")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddQuestionComment(Guid questionId, [FromBody] QuestionCommentRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return GetModelErrorResponse();
+            }
+            request.QuestionId = questionId;
+
+            var commentId = await _question.RegisterQuestionComment(request);
+
+            return GetResponse<Guid>(commentId, StatusCodes.Status201Created);
+        }
+
         [HttpPost("{questionId}/answers")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ResponseDefault<Guid>), StatusCodes.Status201Created)]

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StackOverHead.LibCommon.Repositories;
 using StackOverHead.Question.Domain.Entities;
@@ -11,9 +12,24 @@ namespace StackOverHead.Question.Infra.Repositories
 {
     public class QuestionRepository : BaseRepository<QuestionEntity, QuestionModel>, IQuestionRepository
     {
-        public QuestionRepository(StackOverHeadQuestionDbContext dbContext, IQuestionEntityModelFactory convert)
+        private readonly ICommentEntityToModelFactory _convertComment;
+
+        public QuestionRepository(
+            StackOverHeadQuestionDbContext dbContext,
+            IQuestionEntityModelFactory convert,
+            ICommentEntityToModelFactory convertComment)
             : base(dbContext, convert)
-        { }
+        {
+            _convertComment = convertComment;
+        }
+
+        public async Task RegisterCommentAsync(CommentEntity comment)
+        {
+            var data = _convertComment.Execute(comment);
+            await _context.Set<AnswerModel>().AddAsync(data);
+            await _context.SaveChangesAsync();
+        }
+
         protected override QuestionModel BeforePost(QuestionModel model, EntityState state)
         {
             if (state == EntityState.Added)
