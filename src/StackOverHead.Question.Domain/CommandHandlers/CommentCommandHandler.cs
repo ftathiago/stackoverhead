@@ -9,8 +9,9 @@ using StackOverHead.Question.Domain.Repositories;
 
 namespace StackOverHead.Question.Domain.CommandHandlers
 {
-    public class CommentCommandHandler
-        : IRequestHandler<RegisterAnswerCommentCommand, bool>
+    public class CommentCommandHandler :
+        IRequestHandler<RegisterAnswerCommentCommand, bool>,
+        IRequestHandler<RegisterQuestionCommentCommand, bool>
     {
         private readonly IAnswerRepository _repository;
         private readonly IQuestionRepository _questionRepository;
@@ -45,6 +46,27 @@ namespace StackOverHead.Question.Domain.CommandHandlers
             comment.SetParent(answer);
 
             await _repository.RegisterCommentAsync(comment);
+
+            return true;
+        }
+
+        public async Task<bool> Handle(RegisterQuestionCommentCommand request, CancellationToken cancellationToken)
+        {
+            var question = await _questionRepository.GetByIdAsync(request.QuestionId);
+            if (question == null)
+            {
+                return false;
+            }
+
+            var comment = new CommentEntity(
+                request.UserId,
+                request.Body
+            );
+
+            comment.DefineId(request.Id);
+            comment.SetParent(question);
+
+            await _questionRepository.RegisterCommentAsync(comment);
 
             return true;
         }
