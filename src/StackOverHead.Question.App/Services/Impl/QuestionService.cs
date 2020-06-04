@@ -75,5 +75,21 @@ namespace StackOverHead.Question.App.Services.Impl
             await _mediator.Send(command);
             return commentId;
         }
+
+        public async Task<Guid> RegisterQuestionComment(QuestionCommentRequest request)
+        {
+            var commentId = Guid.NewGuid();
+            var command = new RegisterQuestionCommentCommand
+            {
+                Id = commentId,
+                Body = request.Body,
+                UserId = request.UserId,
+                QuestionId = request.QuestionId,
+            };
+
+            await _mediator.Send(command);
+
+            return commentId;
+        }
     }
 }
