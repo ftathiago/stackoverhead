@@ -43,6 +43,7 @@ namespace StackOverHead.Web
                 .AddSystemDependencies(startup)
                 .AddAuthDependencies(startup)
                 .AddQuestionDependencies(startup)
+                .AddElasticSearch(Configuration)
                 .AddMapper(startup);
 
             services.AddRouting(options => options.LowercaseUrls = true);
