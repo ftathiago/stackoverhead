@@ -37,7 +37,7 @@ namespace StackOverHead.Question.App.Services.Impl
 
         public async Task<Guid> Add(AskQuestion question)
         {
-            var command = new AskQuestionCommand();
+            var command = new RegisterQuestionCommand();
             command.Id = Guid.NewGuid();
             command.Title = question.Title;
             command.Body = question.Body;
@@ -50,7 +50,7 @@ namespace StackOverHead.Question.App.Services.Impl
         public async Task<Guid> RegisterAnswer(AnswerRequest request)
         {
             var answerId = Guid.NewGuid();
-            var command = new AnswerCommand
+            var command = new RegisterAnswerCommand
             {
                 Id = answerId,
                 Body = request.Body,

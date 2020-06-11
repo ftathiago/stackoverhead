@@ -24,6 +24,12 @@ using StackOverHead.Auth.Infra.Repositories;
 using StackOverHead.Auth.Infra.Mapping.Profiles;
 using StackOverHead.Question.App.Factories;
 using StackOverHead.Question.App.Factories.Impl;
+using StackOverHead.Question.Domain.Events;
+using StackOverHead.Question.Elastic.EventSourcings;
+using StackOverHead.Question.Elastic.Repositories;
+using StackOverHead.Question.Elastic.Repositories.Impl;
+using StackOverHead.Question.Domain.Lib.Impl;
+using StackOverHead.Question.Domain.Lib;
 
 namespace StackOverHead.CrossCutting.Extensions
 {
@@ -33,6 +39,10 @@ namespace StackOverHead.CrossCutting.Extensions
         {
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<INotificationHandler<RegisteredQuestion>, ElasticEvents>();
+            services.AddScoped<INotificationHandler<RegisteredAnswer>, ElasticEvents>();
+            services.AddScoped<INotificationHandler<RegisteredComment>, ElasticEvents>();
+            services.AddScoped<IElasticRepository, ElasticRepository>();
             return services;
         }
 
@@ -53,10 +63,11 @@ namespace StackOverHead.CrossCutting.Extensions
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddTransient<IQuestionResponseFactory, QuestionResponseFactory>();
             //.Domain
-            services.AddScoped<IRequestHandler<AskQuestionCommand, bool>, QuestionCommandHandler>();
-            services.AddScoped<IRequestHandler<AnswerCommand, bool>, AnswerCommandHandler>();
+            services.AddScoped<IRequestHandler<RegisterQuestionCommand, bool>, QuestionCommandHandler>();
+            services.AddScoped<IRequestHandler<RegisterAnswerCommand, bool>, AnswerCommandHandler>();
             services.AddScoped<IRequestHandler<RegisterAnswerCommentCommand, bool>, CommentCommandHandler>();
             services.AddScoped<IRequestHandler<RegisterQuestionCommentCommand, bool>, CommentCommandHandler>();
+            services.AddTransient<IQuestionEventLauncher, QuestionEventLauncher>();
             //.Infra
             services.AddTransient<IQuestionEntityModelFactory, QuestionEntityModelFactory>();
             services.AddTransient<IAnswerEntityModelFactory, AnswerEntityModelFactory>();

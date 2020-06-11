@@ -11,6 +11,7 @@
     <ProjectReference Include="..\StackOverHead.Auth.Domain\StackOverHead.Auth.Domain.csproj" />
     <ProjectReference Include="..\StackOverHead.Auth.Infra\StackOverHead.Auth.Infra.csproj" />
     <ProjectReference Include="..\StackOverHead.LibCommon\StackOverHead.LibCommon.csproj" />
+    <ProjectReference Include="..\StackOverHead.Question.Elastic\StackOverHead.Question.Elastic.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
