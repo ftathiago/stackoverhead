@@ -7,9 +7,10 @@ namespace StackOverHead.LibCommon.Services
     public abstract class ServiceBase
     {
         private ValidationResult _validationResult;
+
         protected ValidationResult ValidationResult
         {
-            get => _validationResult ?? (_validationResult = new ValidationResult());
+            get => _validationResult ??= new ValidationResult();
         }
 
         public string GetErrorMessages()

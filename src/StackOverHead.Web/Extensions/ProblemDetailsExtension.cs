@@ -1,4 +1,9 @@
+﻿// <copyright file="ProblemDetailsExtension.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System.Text.Json;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -8,8 +13,16 @@ using Microsoft.Extensions.Logging;
 
 namespace StackOverHead.Web.Extensions
 {
+    /// <summary>
+    /// Extension method to add exception hadler to application.
+    /// </summary>
     public static class ProblemDetailsExtension
     {
+        /// <summary>
+        /// Add a middleware to handle api exceptions.
+        /// </summary>
+        /// <param name="app">App instance to add middleware.</param>
+        /// <param name="loggerFactory">Log instance to log errors.</param>
         public static void UseProblemDetailsExceptionHandler(this IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             app.UseExceptionHandler(builder =>
@@ -24,7 +37,7 @@ namespace StackOverHead.Web.Extensions
 
                         var problemDetails = new ProblemDetails
                         {
-                            Instance = context.Request.HttpContext.Request.Path
+                            Instance = context.Request.HttpContext.Request.Path,
                         };
 
                         if (exception is BadHttpRequestException badHttpRequestException)

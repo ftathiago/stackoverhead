@@ -76,8 +76,7 @@ namespace StackOverHead.CrossCutting.Extensions
             return services;
         }
 
-        public static IServiceCollection AddAuthDependencies(this IServiceCollection services,
-            Type type)
+        public static IServiceCollection AddAuthDependencies(this IServiceCollection services)
         {
             //.App
             services.AddScoped<IUserService, UserService>();

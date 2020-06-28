@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+
 using StackOverHead.LibCommon.Repositories;
 using StackOverHead.Question.Domain.Entities;
 
@@ -8,5 +9,4 @@ namespace StackOverHead.Question.Domain.Repositories
     {
         Task RegisterCommentAsync(CommentEntity comment);
     }
-
 }

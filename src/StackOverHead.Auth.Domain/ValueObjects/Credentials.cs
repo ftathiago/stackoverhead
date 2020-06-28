@@ -5,8 +5,8 @@ namespace StackOverHead.Auth.Domain.ValueObjects
 {
     public class Credentials : ValueObject<Credentials>
     {
-        public string Email { get; private set; }
-        public Password Password { get; private set; }
+        public string Email { get; }
+        public Password Password { get; }
 
         public Credentials(string email, string password, byte[] salt = null)
         {

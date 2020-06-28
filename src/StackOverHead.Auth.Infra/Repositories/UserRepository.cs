@@ -13,6 +13,7 @@ namespace StackOverHead.Auth.Infra.Repositories
     {
         public UserRepository(StackOverHeadAuthDbContext dbContext, IUserEntityModelFactory factory)
           : base(dbContext, factory) { }
+
         public User GetByEmail(string email)
         {
             var user = DbSet.Where(user => user.Email == email).FirstOrDefault();

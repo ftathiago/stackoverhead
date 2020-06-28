@@ -1,6 +1,8 @@
 using System;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using Nest;
 
 namespace StackOverHead.CrossCutting.Extensions

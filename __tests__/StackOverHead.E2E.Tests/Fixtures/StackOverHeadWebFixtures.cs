@@ -25,10 +25,7 @@ namespace StackOverHead.E2E.Tests.Fixtures
                 Log.Write(LogEventLevel.Information, "Initializing TestServer");
                 var webHostBuilder = WebHost.CreateDefaultBuilder()
                         .UseEnvironment("Integration")
-                        .ConfigureAppConfiguration(configuration =>
-                            {
-                                AddConfigurationSettings(configuration);
-                            })
+                        .ConfigureAppConfiguration(configuration => AddConfigurationSettings(configuration))
                         .UseSerilog()
                         .UseStartup<Startup>();
                 var testServer = new TestServer(webHostBuilder);

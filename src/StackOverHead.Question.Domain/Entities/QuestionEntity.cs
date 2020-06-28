@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using StackOverHead.LibCommon.Entities;
 using StackOverHead.Question.Domain.Enums;
 
@@ -7,9 +8,9 @@ namespace StackOverHead.Question.Domain.Entities
 {
     public class QuestionEntity : Entity
     {
-        public string Title { get; private set; }
+        public string Title { get; }
         public Guid UserId { get; private set; }
-        public string Tags { get; private set; }
+        public string Tags { get; }
         public IEnumerable<CommentEntity> Comments { get => _comments; }
         private readonly List<CommentEntity> _comments;
         public IEnumerable<AnswerEntity> Answers { get => _answers; }
@@ -43,7 +44,7 @@ namespace StackOverHead.Question.Domain.Entities
         public void SetQuestionBody(AnswerEntity questionBody)
         {
             if (questionBody.Kind != AnswerKind.QuestionBody)
-                throw new ArgumentException($"You only can set a \"Question body\" type answer");
+                throw new ArgumentException("You only can set a \"Question body\" type answer");
             questionBody.SetParent(this);
             QuestionBody = questionBody;
         }

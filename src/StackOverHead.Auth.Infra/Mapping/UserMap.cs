@@ -1,6 +1,8 @@
 using System;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Domain.ValueObjects;
 using StackOverHead.Auth.Infra.Models;

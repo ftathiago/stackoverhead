@@ -1,3 +1,7 @@
+﻿// <copyright file="LogConfigBuilder.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System;
 using System.Reflection;
 
@@ -11,17 +15,28 @@ using Serilog.Sinks.Elasticsearch;
 
 namespace StackOverHead.Web.Lib
 {
-
+    /// <summary>
+    /// Configure Serilog to project.
+    /// </summary>
     public class LogConfigBuilder
     {
         private readonly IConfigurationRoot _configuration;
         private readonly string _environment;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogConfigBuilder"/> class.
+        /// </summary>
+        /// <param name="configuration">A reference to app configuration params.</param>
+        /// <param name="environment">Environment running.</param>
         public LogConfigBuilder(IConfigurationRoot configuration, string environment)
         {
             _configuration = configuration;
             _environment = environment;
         }
+
+        /// <summary>
+        /// Builds Log configuration (with Serilog).
+        /// </summary>
         public void Build()
         {
             Log.Logger = GetLoggerConfiguration();
@@ -40,10 +55,13 @@ namespace StackOverHead.Web.Lib
                    .ReadFrom.Configuration(_configuration);
 
             if (_environment != "Integration")
+            {
                 logConfigBuilder.WriteTo.File(new JsonFormatter(), GetLogFileName(), LogEventLevel.Debug);
+            }
 
             return logConfigBuilder.CreateLogger();
         }
+
         private string GetLogFileName() => $"{GetLogIndentifier()}.log";
 
         private string GetLogIndentifier()
@@ -56,14 +74,15 @@ namespace StackOverHead.Web.Lib
         private ElasticsearchSinkOptions ConfigureElasticSink()
         {
             var uri = new Uri(_configuration["ElasticConfiguration:Uri"]);
-            var options = new ElasticsearchSinkOptions(uri);
-            options.AutoRegisterTemplate = true;
-            options.AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7;
-            options.IndexFormat = GetLogIndentifier();
-            options.EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
+            return new ElasticsearchSinkOptions(uri)
+            {
+                AutoRegisterTemplate = true,
+                AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
+                IndexFormat = GetLogIndentifier(),
+                EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
                                        EmitEventFailureHandling.WriteToFailureSink |
-                                       EmitEventFailureHandling.RaiseCallback;
-            return options;
+                                       EmitEventFailureHandling.RaiseCallback,
+            };
         }
     }
 }

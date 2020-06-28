@@ -38,11 +38,13 @@ namespace StackOverHead.E2E.Tests.Controllers
         [Fact]
         public async Task ShouldRegisterANewQuestion()
         {
-            var question = new AskQuestion();
-            question.Title = "How to ask a question?";
-            question.Body = "<strong>This is a body with HTML support</strong>";
-            question.Tags = "OneTag,TwoTag";
-            question.UserId = Guid.NewGuid();
+            var question = new AskQuestion
+            {
+                Title = "How to ask a question?",
+                Body = "<strong>This is a body with HTML support</strong>",
+                Tags = "OneTag,TwoTag",
+                UserId = Guid.NewGuid()
+            };
             var content = new StringContent(
                 JsonConvert.SerializeObject(question), Encoding.UTF8, "application/json"
             );

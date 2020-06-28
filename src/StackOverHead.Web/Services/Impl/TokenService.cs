@@ -1,3 +1,7 @@
+﻿// <copyright file="TokenService.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -6,6 +10,7 @@ using System.Text;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
 using StackOverHead.Auth.App.Models;
 
 namespace StackOverHead.Web.Services.Impl
@@ -18,6 +23,7 @@ namespace StackOverHead.Web.Services.Impl
         {
             _configuration = configuration;
         }
+
         public string GenerateToken(AuthenticatedUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -41,7 +47,7 @@ namespace StackOverHead.Web.Services.Impl
                 Expires = DateTime.UtcNow.AddHours(time),
                 SigningCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
+                    SecurityAlgorithms.HmacSha256Signature),
             };
 
             return tokenDescriptor;
@@ -49,12 +55,12 @@ namespace StackOverHead.Web.Services.Impl
 
         private IList<Claim> GetClaims(AuthenticatedUser user)
         {
-            IList<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            claims.Add(new Claim(JwtRegisteredClaimNames.NameId, user.Name));
-            claims.Add(new Claim(ClaimTypes.Role, user.Roles));
-            return claims;
+            return new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.NameId, user.Name),
+                new Claim(ClaimTypes.Role, user.Roles),
+            };
         }
     }
 }
-

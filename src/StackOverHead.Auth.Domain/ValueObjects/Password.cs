@@ -1,4 +1,5 @@
 using System.Linq;
+
 using StackOverHead.Auth.Domain.Libs;
 using StackOverHead.LibCommon.ValueObjects;
 
@@ -6,8 +7,8 @@ namespace StackOverHead.Auth.Domain.ValueObjects
 {
     public class Password : ValueObject<Password>
     {
-        public byte[] Hash { get; private set; }
-        public byte[] Salt { get; private set; }
+        public byte[] Hash { get; }
+        public byte[] Salt { get; }
 
         public Password(byte[] hash, byte[] salt)
         {
@@ -47,7 +48,8 @@ namespace StackOverHead.Auth.Domain.ValueObjects
 
         public override bool IsValid()
         {
-            return (Hash.Any() && Salt.Any());
+            return Hash.Any()
+                && Salt.Any();
         }
     }
 }

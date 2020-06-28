@@ -1,7 +1,8 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
+
 using Nest;
+
 using StackOverHead.Question.Elastic.Models;
 
 namespace StackOverHead.Question.Elastic.Repositories.Impl
@@ -14,6 +15,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
         {
             _client = client;
         }
+
         public async Task AddAnswerAsync(Guid questionId, AnswerModel answer)
         {
             var question = await GetQuestionById(questionId);
@@ -24,7 +26,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
         public async Task AddAnswerCommentAsync(Guid questionId, Guid answerId, CommentModel comment)
         {
             var question = await GetQuestionById(questionId);
-            var answer = question.Answers.FirstOrDefault(a => a.Id == answerId);
+            var answer = question.Answers.Find(a => a.Id == answerId);
             answer.Comments.Add(comment);
             await UpdateQuestionAsync(question);
         }

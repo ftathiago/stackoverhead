@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using MediatR;
+
 using StackOverHead.Question.Domain.Command;
 using StackOverHead.Question.Domain.Entities;
 using StackOverHead.Question.Domain.Lib;
@@ -27,6 +29,7 @@ namespace StackOverHead.Question.Domain.CommandHandlers
             _questionRepository = questionRepository;
             _questionEventLauncher = questionEventLauncher;
         }
+
         public async Task<bool> Handle(RegisterAnswerCommentCommand request, CancellationToken cancellationToken)
         {
             var question = await _questionRepository.GetByIdAsync(request.QuestionId);
@@ -35,7 +38,7 @@ namespace StackOverHead.Question.Domain.CommandHandlers
                 return false;
             }
 
-            var answer = question.Answers.ToList().FirstOrDefault(answer => answer.Id == request.AnswerId);
+            var answer = question.Answers.ToList().Find(answer => answer.Id == request.AnswerId);
             if (answer == null)
             {
                 return false;

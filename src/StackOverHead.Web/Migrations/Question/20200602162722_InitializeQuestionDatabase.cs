@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="20200602162722_InitializeQuestionDatabase.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
+using System;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StackOverHead.Web.Migrations.Question
@@ -17,7 +22,7 @@ namespace StackOverHead.Web.Migrations.Question
                     ViewCount = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     UserId = table.Column<Guid>(nullable: false),
-                    Tags = table.Column<string>(maxLength: 300, nullable: true)
+                    Tags = table.Column<string>(maxLength: 300, nullable: true),
                 },
                 constraints: table =>
                 {
@@ -34,7 +39,7 @@ namespace StackOverHead.Web.Migrations.Question
                     UserId = table.Column<Guid>(nullable: false),
                     AnswerId = table.Column<Guid>(nullable: true),
                     QuestionId = table.Column<Guid>(nullable: true),
-                    Votes = table.Column<int>(nullable: false)
+                    Votes = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -58,7 +63,7 @@ namespace StackOverHead.Web.Migrations.Question
                 columns: table => new
                 {
                     AnswerId = table.Column<Guid>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
                 },
                 constraints: table =>
                 {

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 using StackOverHead.Question.Infra.Models;
 
 namespace StackOverHead.Question.Infra.Mapping

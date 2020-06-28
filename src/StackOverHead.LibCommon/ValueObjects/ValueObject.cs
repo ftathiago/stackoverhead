@@ -8,11 +8,9 @@ namespace StackOverHead.LibCommon.ValueObjects
         public ValidationResult ValidationResult { get => _validationResult; }
         protected ValidationResult _validationResult = new ValidationResult();
 
-
         public override bool Equals(object obj)
         {
-            var valueObject = obj as T;
-            return !ReferenceEquals(valueObject, null) && EqualsCore(valueObject);
+            return obj is T valueObject && EqualsCore(valueObject);
         }
 
         protected abstract bool EqualsCore(T other);

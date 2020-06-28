@@ -9,6 +9,7 @@ namespace StackOverHead.Question.App.Models
         {
             Comments = new List<CommentResponse>();
         }
+
         public Guid Id { get; set; }
         public string Body { get; set; }
         public int Votes { get; set; }

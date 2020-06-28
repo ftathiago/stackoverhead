@@ -1,3 +1,7 @@
+﻿// <copyright file="QuestionController.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System;
 using System.Threading.Tasks;
 
@@ -33,8 +37,11 @@ namespace StackOverHead.Web.Controllers
             {
                 var user = _user.GetUserById(response.User.Id);
                 if (user != null)
+                {
                     response.User.Name = user.FullName;
+                }
             }
+
             return GetResponse<QuestionResponse>(response, StatusCodes.Status200OK);
         }
 
@@ -59,6 +66,7 @@ namespace StackOverHead.Web.Controllers
             {
                 return GetModelErrorResponse();
             }
+
             request.QuestionId = questionId;
 
             var commentId = await _question.RegisterQuestionComment(request);
@@ -76,9 +84,10 @@ namespace StackOverHead.Web.Controllers
             {
                 return GetModelErrorResponse();
             }
-            request.QuestionId = questionId;
-            // request.UserId = extract from token payload
 
+            request.QuestionId = questionId;
+
+            // request.UserId = extract from token payload
             var answerId = await _question.RegisterAnswer(request);
 
             return GetResponse<Guid>(answerId, StatusCodes.Status201Created);
@@ -94,10 +103,11 @@ namespace StackOverHead.Web.Controllers
             {
                 return GetModelErrorResponse();
             }
+
             request.QuestionId = questionId;
             request.AnswerId = answerId;
-            // request.UserId = extract from token payload
 
+            // request.UserId = extract from token payload
             var commentId = await _question.RegisterAnswerComment(request);
 
             return GetResponse<Guid>(commentId, StatusCodes.Status201Created);

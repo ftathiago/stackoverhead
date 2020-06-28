@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using StackOverHead.LibCommon.Entities;
 using StackOverHead.Question.Domain.Enums;
 
@@ -7,13 +8,12 @@ namespace StackOverHead.Question.Domain.Entities
 {
     public class AnswerEntity : Entity
     {
-        public string Body { get; private set; }
-        public Guid UserId { get; private set; }
-        public int Votes { get; private set; }
-        public AnswerKind Kind { get; private set; }
-        public List<CommentEntity> Comments { get => _comments; }
+        public string Body { get; }
+        public Guid UserId { get; }
+        public int Votes { get; }
+        public AnswerKind Kind { get; }
+        public List<CommentEntity> Comments { get; }
         public Entity Parent { get; private set; }
-        private readonly List<CommentEntity> _comments;
 
         public AnswerEntity(string body, Guid userId, AnswerKind kind, int votes)
         {
@@ -21,7 +21,7 @@ namespace StackOverHead.Question.Domain.Entities
             UserId = userId;
             Votes = votes;
             Kind = kind;
-            _comments = new List<CommentEntity>();
+            Comments = new List<CommentEntity>();
         }
 
         public void SetParent(Entity entity)
@@ -31,7 +31,7 @@ namespace StackOverHead.Question.Domain.Entities
 
         public void AddComment(CommentEntity comment)
         {
-            _comments.Add(comment);
+            Comments.Add(comment);
         }
 
         public override bool IsValid()

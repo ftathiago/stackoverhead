@@ -18,6 +18,7 @@ namespace StackOverHead.Question.Elastic.EventSourcings
         {
             _elasticRepository = elasticRepository;
         }
+
         public async Task Handle(RegisteredQuestion notification, CancellationToken cancellationToken)
         {
             var question = new QuestionModel

@@ -1,9 +1,12 @@
 using System;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using Npgsql;
+
 using StackOverHead.Auth.Infra.Context;
 using StackOverHead.CrossCutting.Models;
 using StackOverHead.Question.Infra.Context;
@@ -15,19 +18,23 @@ namespace StackOverHead.CrossCutting.Extensions
         public static string BuildConnectionString(this IConfiguration configuration)
         {
             var appSettings = GetAppSettings(configuration);
-            var builder = new NpgsqlConnectionStringBuilder();
-            builder.Database = appSettings.DBName;
-            builder.Host = appSettings.DBHost;
-            builder.Username = appSettings.DBUsuario;
-            builder.Password = appSettings.DBSenha;
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Database = appSettings.DBName,
+                Host = appSettings.DBHost,
+                Username = appSettings.DBUsuario,
+                Password = appSettings.DBSenha
+            };
             var connectionString = builder.ConnectionString;
             return connectionString;
         }
 
         private static AppSettings GetAppSettings(IConfiguration configuration)
         {
-            var appSettings = new AppSettings();
-            appSettings.DBHost = configuration["DBHOST"] ?? configuration["DatabaseConfig:DatabaseHost"];
+            var appSettings = new AppSettings
+            {
+                DBHost = configuration["DBHOST"] ?? configuration["DatabaseConfig:DatabaseHost"]
+            };
             var dbPort = configuration["DBHOST"] ?? configuration["DatabaseConfig:DatabasePort"];
             if (string.IsNullOrEmpty(dbPort))
             {
@@ -95,6 +102,4 @@ namespace StackOverHead.CrossCutting.Extensions
             return host;
         }
     }
-
-
 }

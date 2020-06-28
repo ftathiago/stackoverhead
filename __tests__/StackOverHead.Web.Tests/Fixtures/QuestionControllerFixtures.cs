@@ -1,4 +1,5 @@
 using Moq;
+
 using StackOverHead.Question.App.Services;
 using StackOverHead.Web.Controllers;
 
@@ -8,9 +9,7 @@ namespace StackOverHead.Web.Tests.Fixtures
     {
         public QuestionController QuestionControllerFactory(Mock<IQuestionService> questionService = null)
         {
-            var service = questionService;
-            if (service == null)
-                service = MockQuestionService();
+            var service = questionService ?? MockQuestionService();
 
             return new QuestionController(service.Object, null);
         }
