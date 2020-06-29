@@ -75,7 +75,7 @@ namespace StackOverHead.Question.Domain.CommandHandlers
             comment.SetParent(question);
 
             await _questionRepository.RegisterCommentAsync(comment);
-            await _questionEventLauncher.Publish(request.QuestionId, question.QuestionBody.Id, comment);
+            await _questionEventLauncher.Publish(request.QuestionId, comment);
 
             return true;
         }

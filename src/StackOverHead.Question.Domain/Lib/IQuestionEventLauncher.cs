@@ -9,6 +9,7 @@ namespace StackOverHead.Question.Domain.Lib
     {
         Task Publish(QuestionEntity askQuestion);
         Task Publish(Guid questionId, Guid answerId, CommentEntity comment);
+        Task Publish(Guid questionId, CommentEntity comment);
         Task Publish(AnswerEntity answer);
     }
 }

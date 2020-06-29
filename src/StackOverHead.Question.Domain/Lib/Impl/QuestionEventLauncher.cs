@@ -22,6 +22,7 @@ namespace StackOverHead.Question.Domain.Lib.Impl
             var registeredQuestion = new RegisteredQuestion
             {
                 Id = question.Id,
+                Title = question.Title,
                 Body = question.QuestionBody.Body,
                 Date = DateTime.Now,
                 Tags = question.Tags
@@ -31,14 +32,25 @@ namespace StackOverHead.Question.Domain.Lib.Impl
 
         public async Task Publish(Guid questionId, Guid answerId, CommentEntity comment)
         {
-            var registerComment = new RegisteredComment
+            var registerComment = new RegisteredAnswerComment
             {
                 Id = comment.Id,
                 Content = comment.Body,
                 QuestionId = questionId,
                 AnswerId = answerId
             };
-            await _mediator.Publish<RegisteredComment>(registerComment);
+            await _mediator.Publish<RegisteredAnswerComment>(registerComment);
+        }
+
+        public async Task Publish(Guid questionId, CommentEntity comment)
+        {
+            var registerComment = new RegisteredQuestionComment
+            {
+                Id = comment.Id,
+                Content = comment.Body,
+                QuestionId = questionId,
+            };
+            await _mediator.Publish<RegisteredQuestionComment>(registerComment);
         }
 
         public async Task Publish(AnswerEntity answer)

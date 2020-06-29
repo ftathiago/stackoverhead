@@ -41,7 +41,8 @@ namespace StackOverHead.CrossCutting.Extensions
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<INotificationHandler<RegisteredQuestion>, ElasticEvents>();
             services.AddScoped<INotificationHandler<RegisteredAnswer>, ElasticEvents>();
-            services.AddScoped<INotificationHandler<RegisteredComment>, ElasticEvents>();
+            services.AddScoped<INotificationHandler<RegisteredAnswerComment>, ElasticEvents>();
+            services.AddScoped<INotificationHandler<RegisteredQuestionComment>, ElasticEvents>();
             services.AddScoped<IElasticRepository, ElasticRepository>();
             return services;
         }

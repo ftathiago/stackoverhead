@@ -9,8 +9,9 @@ namespace StackOverHead.Question.Elastic.EventSourcings
 {
     public class ElasticEvents :
         INotificationHandler<RegisteredQuestion>,
+        INotificationHandler<RegisteredQuestionComment>,
         INotificationHandler<RegisteredAnswer>,
-        INotificationHandler<RegisteredComment>
+        INotificationHandler<RegisteredAnswerComment>
     {
         private readonly IElasticRepository _elasticRepository;
 
@@ -24,9 +25,10 @@ namespace StackOverHead.Question.Elastic.EventSourcings
             var question = new QuestionModel
             {
                 Id = notification.Id,
+                Title = notification.Title,
                 Body = notification.Body,
                 Date = notification.Date,
-                Tags = notification.Tags
+                Tags = notification.Tags,
             };
             await _elasticRepository.AddQuestionAsync(question);
         }
@@ -42,7 +44,7 @@ namespace StackOverHead.Question.Elastic.EventSourcings
             await _elasticRepository.AddAnswerAsync(notification.QuestionId, answer);
         }
 
-        public async Task Handle(RegisteredComment notification, CancellationToken cancellationToken)
+        public async Task Handle(RegisteredAnswerComment notification, CancellationToken cancellationToken)
         {
             var answerComment = new CommentModel
             {
@@ -55,6 +57,20 @@ namespace StackOverHead.Question.Elastic.EventSourcings
                 notification.QuestionId,
                 notification.AnswerId,
                 answerComment);
+        }
+
+        public async Task Handle(RegisteredQuestionComment notification, CancellationToken cancellationToken)
+        {
+            var questionComment = new CommentModel
+            {
+                Id = notification.Id,
+                QuestionId = notification.QuestionId,
+                Content = notification.Content,
+            };
+
+            await _elasticRepository.AddQuestionCommentAsync(
+                notification.QuestionId,
+                questionComment);
         }
     }
 }

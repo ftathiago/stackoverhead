@@ -46,6 +46,7 @@ namespace StackOverHead.Question.Domain.CommandHandlers
             answer.SetParent(question);
 
             await _answerRepository.RegisterAsync(answer);
+            await _questionEventLauncher.Publish(answer);
 
             return true;
         }

@@ -12,10 +12,11 @@ namespace StackOverHead.Question.Elastic.Models
         }
 
         public Guid Id { get; set; }
+        public string Title { get; set; }
         public string Body { get; set; }
         public DateTime Date { get; set; }
         public string Tags { get; set; }
-        public List<CommentModel> Comments { get; }
-        public List<AnswerModel> Answers { get; }
+        public virtual List<CommentModel> Comments { get; set; }
+        public virtual List<AnswerModel> Answers { get; set; }
     }
 }
