@@ -1,8 +1,13 @@
+﻿// <copyright file="Error.cshtml.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;

@@ -1,3 +1,7 @@
+﻿// <copyright file="Program.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System;
 using System.Reflection;
 
@@ -32,6 +36,12 @@ namespace StackOverHead.Web
             }
         }
 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+              .ConfigureAppConfiguration(configuration => AddConfigurationSettings(configuration))
+              .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
+              .UseSerilog();
+
         private static void LogConfig()
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -41,19 +51,7 @@ namespace StackOverHead.Web
             log.Build();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-          Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(configuration =>
-                {
-                    AddConfigurationSettings(configuration);
-                })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .UseSerilog();
-
-        public static IConfigurationBuilder AddConfigurationSettings(IConfigurationBuilder configuration)
+        private static IConfigurationBuilder AddConfigurationSettings(IConfigurationBuilder configuration)
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             configuration

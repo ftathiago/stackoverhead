@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+
 using StackOverHead.Question.Domain.Entities;
 using StackOverHead.Question.Domain.Enums;
 using StackOverHead.Question.Infra.Models;
@@ -21,16 +22,17 @@ namespace StackOverHead.Question.Infra.Factories.Impl
 
         public QuestionModel Execute(QuestionEntity from)
         {
-            var model = new QuestionModel();
-            model.Id = from.Id;
-            model.Title = from.Title;
-            model.UserId = from.UserId;
-            model.Tags = from.Tags;
+            var model = new QuestionModel
+            {
+                Id = from.Id,
+                Title = from.Title,
+                UserId = from.UserId,
+                Tags = from.Tags
+            };
             LoadQuestionBodyFromEntityToModel(from, model);
             LoadAnswerCommentFromEntityToModel(from, model);
             return model;
         }
-
 
         public QuestionEntity Execute(QuestionModel from)
         {
@@ -48,11 +50,13 @@ namespace StackOverHead.Question.Infra.Factories.Impl
         {
             if (entity.QuestionBody == null)
                 return;
-            var questionBody = new AnswerModel();
-            questionBody.Id = entity.QuestionBody.Id;
-            questionBody.Body = entity.QuestionBody.Body;
-            questionBody.UserId = entity.QuestionBody.UserId;
-            questionBody.KindOf = (int)AnswerKind.QuestionBody;
+            var questionBody = new AnswerModel
+            {
+                Id = entity.QuestionBody.Id,
+                Body = entity.QuestionBody.Body,
+                UserId = entity.QuestionBody.UserId,
+                KindOf = (int)AnswerKind.QuestionBody
+            };
             model.Answers.Add(questionBody);
         }
 

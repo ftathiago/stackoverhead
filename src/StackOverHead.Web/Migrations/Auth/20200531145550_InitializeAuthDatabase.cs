@@ -1,4 +1,9 @@
-﻿using System;
+﻿// <copyright file="20200531145550_InitializeAuthDatabase.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
+using System;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StackOverHead.Web.Migrations.Auth
@@ -16,7 +21,7 @@ namespace StackOverHead.Web.Migrations.Auth
                     Email = table.Column<string>(maxLength: 100, nullable: false),
                     Hash = table.Column<byte[]>(nullable: false),
                     Salt = table.Column<byte[]>(nullable: false),
-                    Roles = table.Column<string>(nullable: true)
+                    Roles = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

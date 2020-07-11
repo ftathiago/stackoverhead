@@ -1,9 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="Roslynator.Analyzers" Version="2.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\StackOverHead.LibCommon\StackOverHead.LibCommon.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ProjectGuid>464E20D6-7588-430C-9285-DF8DA0FF2BCC</ProjectGuid>
+    <CodeAnalysisRuleSet>..\..\CodeAnalyzerRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>

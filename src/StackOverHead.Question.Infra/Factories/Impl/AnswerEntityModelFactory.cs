@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+
 using StackOverHead.Question.Domain.Entities;
 using StackOverHead.Question.Domain.Enums;
 using StackOverHead.Question.Infra.Models;
@@ -17,12 +18,14 @@ namespace StackOverHead.Question.Infra.Factories.Impl
 
         public AnswerModel Execute(AnswerEntity from)
         {
-            var model = new AnswerModel();
-            model.Id = from.Id;
-            model.KindOf = (int)from.Kind;
-            model.QuestionId = from.Parent.Id;
-            model.Body = from.Body;
-            model.UserId = from.UserId;
+            var model = new AnswerModel
+            {
+                Id = from.Id,
+                KindOf = (int)from.Kind,
+                QuestionId = from.Parent.Id,
+                Body = from.Body,
+                UserId = from.UserId
+            };
             LoadCommentEntityToModel(from, model);
             return model;
         }

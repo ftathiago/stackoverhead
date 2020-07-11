@@ -1,4 +1,5 @@
 using System;
+
 using MediatR;
 
 namespace StackOverHead.Question.Domain.Command

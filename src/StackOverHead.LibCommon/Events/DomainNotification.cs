@@ -4,8 +4,8 @@ namespace StackOverHead.LibCommon.Events
 {
     public class DomainNotification : INotification
     {
-        public string Key { get; private set; }
-        public string Value { get; private set; }
+        public string Key { get; }
+        public string Value { get; }
 
         public DomainNotification(string key, string value)
         {

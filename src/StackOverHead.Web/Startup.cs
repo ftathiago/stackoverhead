@@ -1,3 +1,7 @@
+﻿// <copyright file="Startup.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System.IO.Compression;
 using System.Reflection;
 
@@ -20,11 +24,11 @@ namespace StackOverHead.Web
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-            this.Env = env;
-
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+
         private IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -33,15 +37,19 @@ namespace StackOverHead.Web
             var connectionString = Configuration.BuildConnectionString();
             var assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
             if (Env.EnvironmentName == "Integration")
+            {
                 services.AddMemoryDatabase();
+            }
             else
+            {
                 services.AddPostgres(assemblyName, connectionString);
+            }
 
             var startup = typeof(Startup);
             services
                 .AddRepositories()
                 .AddSystemDependencies(startup)
-                .AddAuthDependencies(startup)
+                .AddAuthDependencies()
                 .AddQuestionDependencies(startup)
                 .AddElasticSearch(Configuration)
                 .AddMapper(startup);
@@ -60,15 +68,10 @@ namespace StackOverHead.Web
                 options => options.Level = CompressionLevel.Optimal);
             services.AddResponseCompression(options => options.Providers.Add<GzipCompressionProvider>());
 
-            services.AddControllersWithViews().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-            });
+            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
+
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +92,7 @@ namespace StackOverHead.Web
             else
             {
                 app.UseExceptionHandler("/Error");
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -101,10 +105,7 @@ namespace StackOverHead.Web
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", Assembly.GetExecutingAssembly().GetName().Name);
-            });
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", Assembly.GetExecutingAssembly().GetName().Name));
 
             app.UseRouting();
             app.UseAuthentication();
@@ -120,12 +121,12 @@ namespace StackOverHead.Web
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    // spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
                 }
             });
         }

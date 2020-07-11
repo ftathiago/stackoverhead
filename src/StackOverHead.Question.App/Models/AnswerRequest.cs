@@ -7,6 +7,7 @@ namespace StackOverHead.Question.App.Models
     {
         [Required]
         public string Body { get; set; }
+
         public Guid UserId { get; set; }
         public Guid QuestionId { get; set; }
     }

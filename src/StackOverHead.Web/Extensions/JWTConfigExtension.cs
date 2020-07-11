@@ -1,3 +1,7 @@
+﻿// <copyright file="JWTConfigExtension.cs" company="BlogDoFT">
+// Copyright (c) BlogDoFT. All rights reserved.
+// </copyright>
+
 using System.Text;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -8,9 +12,10 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace StackOverHead.Web.Extensions
 {
-    public static class JWTConfigExtension //NOSONAR
+    public static class JWTConfigExtension // NOSONAR
     {
-        public static IServiceCollection AddJWTConfig(this IServiceCollection services,
+        public static IServiceCollection AddJWTConfig(
+            this IServiceCollection services,
             IConfiguration configuration)
         {
             IdentityModelEventSource.ShowPII = true;
@@ -31,7 +36,7 @@ namespace StackOverHead.Web.Extensions
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
                 };
             });
             return services;

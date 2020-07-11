@@ -12,8 +12,8 @@ namespace StackOverHead.Question.Infra.Models
         public Guid? AnswerId { get; set; }
         public Guid? QuestionId { get; set; }
         public int Votes { get; set; }
-        public virtual ICollection<AnswerUserVotesModel> UserVotes { get; private set; }
-        public virtual ICollection<AnswerModel> Comments { get; private set; }
+        public virtual ICollection<AnswerUserVotesModel> UserVotes { get; }
+        public virtual ICollection<AnswerModel> Comments { get; }
         public virtual AnswerModel Answer { get; set; }
         public virtual QuestionModel Question { get; set; }
     }

@@ -1,9 +1,10 @@
 using System;
+
 using MediatR;
 
 namespace StackOverHead.Question.Domain.Command
 {
-    public class AskQuestionCommand : IRequest<bool>
+    public class RegisterQuestionCommand : IRequest<bool>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

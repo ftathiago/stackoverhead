@@ -1,4 +1,5 @@
 using System;
+
 using StackOverHead.LibCommon.Entities;
 
 namespace StackOverHead.Question.Domain.Entities
@@ -6,8 +7,9 @@ namespace StackOverHead.Question.Domain.Entities
     public class CommentEntity : Entity
     {
         public Guid UserId { get; private set; }
-        public string Body { get; private set; }
+        public string Body { get; }
         public Entity Parent { get; private set; }
+
         public CommentEntity(Guid userId, string body)
         {
             UserId = userId;

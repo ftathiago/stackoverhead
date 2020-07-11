@@ -1,4 +1,5 @@
 using AutoMapper;
+
 using StackOverHead.Auth.Domain.Entities;
 using StackOverHead.Auth.Domain.ValueObjects;
 using StackOverHead.Auth.Infra.Models;

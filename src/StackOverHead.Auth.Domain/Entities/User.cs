@@ -11,6 +11,7 @@ namespace StackOverHead.Auth.Domain.Entities
         public string Roles { get; protected set; }
 
         private User() { }
+
         public User(string name, string email, Password password, string roles) : this()
         {
             Name = name;

@@ -11,8 +11,8 @@ namespace StackOverHead.Auth.Domain.Libs
 
         public PasswordHashCalculator(string password)
         {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+            if (password == null) throw new ArgumentNullException(nameof(password));
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", nameof(password));
 
             CalcHash(password);
         }
@@ -31,6 +31,5 @@ namespace StackOverHead.Auth.Domain.Libs
             PasswordSalt = hmac.Key;
             PasswordHash = hmac.ComputeHash(encodedString);
         }
-
     }
 }

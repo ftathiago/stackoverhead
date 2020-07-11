@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+
 using StackOverHead.Question.Infra.Mapping;
 using StackOverHead.Question.Infra.Models;
 
@@ -10,7 +11,10 @@ namespace StackOverHead.Question.Infra.Context
         public DbSet<AnswerUserVotesModel> AnswerUserVotes { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }
 
-        public StackOverHeadQuestionDbContext() : base() { }
+        public StackOverHeadQuestionDbContext() : base()
+        {
+        }
+
         public StackOverHeadQuestionDbContext(DbContextOptions<StackOverHeadQuestionDbContext> options)
             : base(options)
         { }

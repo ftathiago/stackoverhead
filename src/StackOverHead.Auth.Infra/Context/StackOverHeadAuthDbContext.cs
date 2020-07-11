@@ -9,6 +9,7 @@ namespace StackOverHead.Auth.Infra.Context
     {
         public DbSet<UserModel> Users { get; set; }
         public StackOverHeadAuthDbContext() : base() { }
+
         public StackOverHeadAuthDbContext(DbContextOptions<StackOverHeadAuthDbContext> options)
             : base(options)
         { }

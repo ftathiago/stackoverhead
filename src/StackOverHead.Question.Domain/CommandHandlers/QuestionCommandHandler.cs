@@ -1,24 +1,30 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+
 using MediatR;
+
 using StackOverHead.Question.Domain.Command;
 using StackOverHead.Question.Domain.Entities;
 using StackOverHead.Question.Domain.Enums;
+using StackOverHead.Question.Domain.Events;
+using StackOverHead.Question.Domain.Lib;
 using StackOverHead.Question.Domain.Repositories;
 
 namespace StackOverHead.Question.Domain.CommandHandlers
 {
-    public class QuestionCommandHandler : IRequestHandler<AskQuestionCommand, bool>
+    public class QuestionCommandHandler : IRequestHandler<RegisterQuestionCommand, bool>
     {
         private readonly IQuestionRepository _repository;
+        private readonly IQuestionEventLauncher _questionEvent;
 
-        public QuestionCommandHandler(IQuestionRepository repository)
+        public QuestionCommandHandler(IQuestionRepository repository, IQuestionEventLauncher questionEvent)
         {
             _repository = repository;
+            _questionEvent = questionEvent;
         }
 
-        public async Task<bool> Handle(AskQuestionCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(RegisterQuestionCommand request, CancellationToken cancellationToken)
         {
             var question = new QuestionEntity(
                 request.Title,
@@ -38,6 +44,8 @@ namespace StackOverHead.Question.Domain.CommandHandlers
             question.SetQuestionBody(questionBody);
 
             await _repository.RegisterAsync(question);
+
+            await _questionEvent.Publish(question);
 
             return true;
         }

@@ -35,14 +35,16 @@ namespace StackOverHead.Question.App.Services.Impl
             return response;
         }
 
-        public async Task<Guid> Add(AskQuestion question)
+        public async Task<Guid> Add(AskQuestion request)
         {
-            var command = new AskQuestionCommand();
-            command.Id = Guid.NewGuid();
-            command.Title = question.Title;
-            command.Body = question.Body;
-            command.Tags = question.Tags;
-            command.UserId = question.UserId;
+            var command = new RegisterQuestionCommand
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title,
+                Body = request.Body,
+                Tags = request.Tags,
+                UserId = request.UserId
+            };
             await _mediator.Send(command);
             return command.Id;
         }
@@ -50,7 +52,7 @@ namespace StackOverHead.Question.App.Services.Impl
         public async Task<Guid> RegisterAnswer(AnswerRequest request)
         {
             var answerId = Guid.NewGuid();
-            var command = new AnswerCommand
+            var command = new RegisterAnswerCommand
             {
                 Id = answerId,
                 Body = request.Body,

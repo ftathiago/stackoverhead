@@ -10,6 +10,7 @@ namespace StackOverHead.Question.App.Models
             Answers = new List<AnswerResponse>();
             Comments = new List<CommentResponse>();
         }
+
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }

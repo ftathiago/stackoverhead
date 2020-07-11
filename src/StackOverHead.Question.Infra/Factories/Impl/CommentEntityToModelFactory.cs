@@ -8,11 +8,13 @@ namespace StackOverHead.Question.Infra.Factories.Impl
     {
         public AnswerModel Execute(CommentEntity from)
         {
-            var model = new AnswerModel();
-            model.KindOf = (int)AnswerKind.Comment;
-            model.Id = from.Id;
-            model.Body = from.Body;
-            model.UserId = from.UserId;
+            var model = new AnswerModel
+            {
+                KindOf = (int)AnswerKind.Comment,
+                Id = from.Id,
+                Body = from.Body,
+                UserId = from.UserId
+            };
             ResolveParentId(model, from);
             return model;
         }

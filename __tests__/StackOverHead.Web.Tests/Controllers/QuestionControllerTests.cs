@@ -20,11 +20,13 @@ namespace StackOverHead.Web.Tests.Controllers
         [Fact]
         public void ShouldRegisterANewQuestion()
         {
-            var question = new AskQuestion();
-            question.Title = "How to ask a question?";
-            question.Body = "<strong>This is a body with HTML support</strong>";
-            question.Tags = "OneTag,TwoTag";
-            question.UserId = Guid.NewGuid();
+            var question = new AskQuestion
+            {
+                Title = "How to ask a question?",
+                Body = "<strong>This is a body with HTML support</strong>",
+                Tags = "OneTag,TwoTag",
+                UserId = Guid.NewGuid()
+            };
             var questionService = _controllerFixtures.MockQuestionService();
             questionService
                 .Setup(s => s.Add(question));

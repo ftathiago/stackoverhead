@@ -1,4 +1,5 @@
 using System;
+
 using StackOverHead.Auth.App.Models;
 using StackOverHead.Auth.Domain.Repositories;
 using StackOverHead.LibCommon.Services;
@@ -13,6 +14,7 @@ namespace StackOverHead.Auth.App.Services.Impl
         {
             _repository = repository;
         }
+
         public UserModelView GetUserById(Guid id)
         {
             var user = _repository.GetById(id);

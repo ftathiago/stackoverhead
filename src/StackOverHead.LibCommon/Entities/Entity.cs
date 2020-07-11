@@ -1,4 +1,5 @@
 using System;
+
 using FluentValidation.Results;
 
 namespace StackOverHead.LibCommon.Entities
@@ -7,7 +8,6 @@ namespace StackOverHead.LibCommon.Entities
     {
         public ValidationResult ValidationResult { get => _validationResult; }
         protected ValidationResult _validationResult = new ValidationResult();
-
 
         public Guid Id { get; protected set; }
 
