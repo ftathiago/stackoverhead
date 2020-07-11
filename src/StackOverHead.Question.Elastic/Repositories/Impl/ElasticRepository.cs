@@ -1,8 +1,6 @@
 using System;
 using System.Threading.Tasks;
-
 using Nest;
-
 using StackOverHead.Question.Elastic.Models;
 
 namespace StackOverHead.Question.Elastic.Repositories.Impl
