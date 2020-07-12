@@ -6,7 +6,7 @@ using StackOverHead.Question.Elastic.Repositories;
 using StackOverHead.Question.Elastic.Models;
 using StackOverHead.Question.Domain.Enums;
 
-namespace StackOverHead.Question.Elastic.EventSourcings
+namespace StackOverHead.Question.Elastic.Handlers
 {
     public class CommentEventsHandler :
         INotificationHandler<RegisteredQuestionComment>,

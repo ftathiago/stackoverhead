@@ -1,6 +1,5 @@
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using StackOverHead.Question.Elastic.Models;
 
 namespace StackOverHead.Question.Elastic.Repositories
@@ -10,5 +9,10 @@ namespace StackOverHead.Question.Elastic.Repositories
         Task AddAsync(Answer question);
         Task UpdateAsync(Answer question);
         Task RemoveAsync(Answer model);
+        Task<IEnumerable<Answer>> SearchAsync(
+            string question,
+            string tags,
+            int page,
+            int pageSize);
     }
 }

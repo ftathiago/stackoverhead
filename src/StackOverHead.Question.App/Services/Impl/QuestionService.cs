@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using MediatR;
-
+using StackOverHead.Question.App.Command;
 using StackOverHead.Question.App.Factories;
 using StackOverHead.Question.App.Models;
 using StackOverHead.Question.Domain.Command;
@@ -31,8 +32,7 @@ namespace StackOverHead.Question.App.Services.Impl
             var question = await _repository.GetByIdAsync(id);
             if (question == null)
                 return new QuestionResponse();
-            var response = _responseFactory.Execute(question);
-            return response;
+            return _responseFactory.Execute(question);
         }
 
         public async Task<Guid> Add(AskQuestion request)
@@ -92,6 +92,16 @@ namespace StackOverHead.Question.App.Services.Impl
             await _mediator.Send(command);
 
             return commentId;
+        }
+
+        public Task<IEnumerable<SearchQuestionResponse>> Search(
+            string question,
+            string tags,
+            int page,
+            int pageSize)
+        {
+            var questionCommand = new QuestionCommand(question, tags, page, pageSize);
+            return _mediator.Send(questionCommand);
         }
     }
 }
