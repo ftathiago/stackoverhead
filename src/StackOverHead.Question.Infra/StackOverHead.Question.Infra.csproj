@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\StackOverHead.Question.App\StackOverHead.Question.App.csproj" />
+    <ProjectReference Include="..\StackOverHead.Question.Domain\StackOverHead.Question.Domain.csproj" />
     <ProjectReference Include="..\StackOverHead.LibCommon\StackOverHead.LibCommon.csproj" />
   </ItemGroup>
   <ItemGroup>

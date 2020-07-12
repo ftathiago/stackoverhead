@@ -6,27 +6,28 @@ using StackOverHead.Question.Elastic.Repositories;
 using StackOverHead.Question.Elastic.Models;
 using StackOverHead.Question.Domain.Enums;
 
-namespace StackOverHead.Question.Elastic.EventSourcings
+namespace StackOverHead.Question.Elastic.Handlers
 {
-    public class QuestionEventsHandler :
-        INotificationHandler<RegisteredQuestion>
+    public class AnswerEventsHandler :
+        INotificationHandler<RegisteredAnswer>
     {
         private readonly IAnswerRepository _answers;
 
-        public QuestionEventsHandler(IAnswerRepository answers)
+        public AnswerEventsHandler(IAnswerRepository answers)
         {
             _answers = answers;
         }
 
-        public async Task Handle(RegisteredQuestion notification, CancellationToken cancellationToken)
+        public async Task Handle(RegisteredAnswer notification, CancellationToken cancellationToken)
         {
             var answer = new Answer
             {
                 Id = notification.Id,
-                QuestionId = notification.Id,
-                AnswerKind = AnswerKind.QuestionBody,
-                Content = notification.Body,
+                QuestionId = notification.QuestionId,
+                AnswerKind = AnswerKind.Answer,
+                Content = notification.Content
             };
+
             await _answers.AddAsync(answer);
         }
     }

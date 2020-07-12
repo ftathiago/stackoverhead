@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 
 using StackOverHead.CrossCutting.Extensions;
 using StackOverHead.Web.Extensions;
+using StackOverHead.Web.Models;
 
 namespace StackOverHead.Web
 {
@@ -48,7 +49,11 @@ namespace StackOverHead.Web
             var startup = typeof(Startup);
             services
                 .AddDependencies(startup, Configuration)
-                .AddRouting(options => options.LowercaseUrls = true)
+                .AddRouting(options =>
+                {
+                    options.LowercaseUrls = true;
+                    options.ConstraintMap.Add("SearchQuestionRequest", typeof(SearchQuestionRequest));
+                })
                 .AddWebDependencies()
                 .AddSwaggerConfig()
                 .AddJWTConfig(Configuration)

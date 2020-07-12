@@ -5,6 +5,8 @@
     <CodeAnalysisRuleSet>..\..\CodeAnalyzerRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="NEST" Version="7.7.1" />
     <PackageReference Include="Roslynator.Analyzers" Version="2.3.0">
@@ -14,5 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StackOverHead.Question.Domain\StackOverHead.Question.Domain.csproj" />
+    <ProjectReference Include="..\StackOverHead.Question.App\StackOverHead.Question.App.csproj" />
   </ItemGroup>
 </Project>

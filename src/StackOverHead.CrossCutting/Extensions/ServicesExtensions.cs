@@ -31,7 +31,7 @@ namespace StackOverHead.CrossCutting.Extensions
             IConfiguration configuration) =>
             services
                 .AddQuestionInfra(type)
-                .AddQuestionElastic(configuration)
+                .AddQuestionElastic(type, configuration)
                 .AddQuestionDomain()
                 .AddQuestionAppDependencies();
 

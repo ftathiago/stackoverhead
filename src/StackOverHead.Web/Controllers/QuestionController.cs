@@ -1,13 +1,8 @@
-﻿// <copyright file="QuestionController.cs" company="BlogDoFT">
-// Copyright (c) BlogDoFT. All rights reserved.
-// </copyright>
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 using StackOverHead.Auth.App.Services;
 using StackOverHead.Question.App.Models;
 using StackOverHead.Question.App.Services;
@@ -27,6 +22,17 @@ namespace StackOverHead.Web.Controllers
         {
             _question = question;
             _user = user;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchQuestion(SearchQuestionRequest request)
+        {
+            var response = await _question.Search(
+                request.Question,
+                request.Tags,
+                request.Page.Value,
+                request.PageSize.Value);
+            return GetResponse<IEnumerable<SearchQuestionResponse>>(response);
         }
 
         [HttpGet("{id}")]
