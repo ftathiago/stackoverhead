@@ -1,5 +1,4 @@
 using AutoMapper;
-
 using StackOverHead.Question.Domain.Entities;
 using StackOverHead.Question.Infra.Models;
 

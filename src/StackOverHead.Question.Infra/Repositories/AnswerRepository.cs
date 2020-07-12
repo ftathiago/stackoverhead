@@ -1,11 +1,6 @@
-using System;
 using System.Threading.Tasks;
-
-using Microsoft.EntityFrameworkCore;
-
 using StackOverHead.LibCommon.Repositories;
 using StackOverHead.Question.Domain.Entities;
-using StackOverHead.Question.Domain.Enums;
 using StackOverHead.Question.Domain.Repositories;
 using StackOverHead.Question.Infra.Context;
 using StackOverHead.Question.Infra.Factories;

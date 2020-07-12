@@ -37,14 +37,18 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
             int page,
             int pageSize)
         {
-            var answers = await _client.SearchAsync<Answer>(
-                search => search.Query(
-                    query => query.QueryString(
-                        descriptor => descriptor.Query(question)
-                    )
-                )
-                .From((page - 1) * pageSize)
-                .Size(pageSize)
+            var answers = await _client.SearchAsync<Answer>(s => s
+                .Query(q =>
+                {
+                    q.Match(m => m
+                        .Field(f => f.Content)
+                        .Query(question));
+                    if (string.IsNullOrEmpty(tags))
+                        return q;
+                    return q && q.Match(m => m
+                        .Field(f => f.Tags)
+                        .Query(tags));
+                })
             );
             if (!answers.IsValid)
             {

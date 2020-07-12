@@ -1,16 +1,15 @@
 using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
 using MediatR;
-using StackOverHead.LibCommon.Events;
-using StackOverHead.Question.Infra.Extensions;
-using StackOverHead.Question.Elastic.Extensions;
-using StackOverHead.Question.Domain.Extensions;
-using StackOverHead.Question.App.Extensions;
 using StackOverHead.Auth.App.Extensions;
 using StackOverHead.Auth.Domain.Extensions;
 using StackOverHead.Auth.Infra.Extensions;
-using Microsoft.Extensions.Configuration;
+using StackOverHead.LibCommon.Events;
+using StackOverHead.Question.App.Extensions;
+using StackOverHead.Question.Domain.Extensions;
+using StackOverHead.Question.Elastic.Extensions;
+using StackOverHead.Question.Infra.Extensions;
 
 namespace StackOverHead.CrossCutting.Extensions
 {
@@ -21,9 +20,9 @@ namespace StackOverHead.CrossCutting.Extensions
             Type type,
             IConfiguration configuration) =>
             services
-                .AddQuestionDependencies(type, configuration)
                 .AddAuthDependencies(type)
-                .AddSystemDependencies(type);
+                .AddSystemDependencies(type)
+                .AddQuestionDependencies(type, configuration);
 
         private static IServiceCollection AddQuestionDependencies(
             this IServiceCollection services,

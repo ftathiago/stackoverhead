@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
-using StackOverHead.Question.Domain.Events;
 using MediatR;
-using StackOverHead.Question.Elastic.Repositories;
-using StackOverHead.Question.Elastic.Models;
 using StackOverHead.Question.Domain.Enums;
+using StackOverHead.Question.Domain.Events;
+using StackOverHead.Question.Elastic.Models;
+using StackOverHead.Question.Elastic.Repositories;
 
 namespace StackOverHead.Question.Elastic.Handlers
 {

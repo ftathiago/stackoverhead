@@ -30,8 +30,8 @@ namespace StackOverHead.Web.Controllers
             var response = await _question.Search(
                 request.Question,
                 request.Tags,
-                request.Page.Value,
-                request.PageSize.Value);
+                request.Page,
+                request.PageSize);
             return GetResponse<IEnumerable<SearchQuestionResponse>>(response);
         }
 
