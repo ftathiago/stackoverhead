@@ -47,28 +47,17 @@ namespace StackOverHead.Web
 
             var startup = typeof(Startup);
             services
-                .AddRepositories()
-                .AddSystemDependencies(startup)
-                .AddAuthDependencies()
-                .AddQuestionDependencies(startup)
-                .AddElasticSearch(Configuration)
-                .AddMapper(startup);
-
-            services.AddRouting(options => options.LowercaseUrls = true);
-
-            services.AddWebDependencies();
-
-            services.AddSwaggerConfig();
-
-            services.AddJWTConfig(Configuration);
-
-            services.AddCors();
-
-            services.Configure<GzipCompressionProviderOptions>(
-                options => options.Level = CompressionLevel.Optimal);
-            services.AddResponseCompression(options => options.Providers.Add<GzipCompressionProvider>());
-
-            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
+                .AddDependencies(startup, Configuration)
+                .AddRouting(options => options.LowercaseUrls = true)
+                .AddWebDependencies()
+                .AddSwaggerConfig()
+                .AddJWTConfig(Configuration)
+                .AddCors()
+                .Configure<GzipCompressionProviderOptions>(
+                    options => options.Level = CompressionLevel.Optimal)
+                .AddResponseCompression(options => options.Providers.Add<GzipCompressionProvider>())
+                .AddControllersWithViews()
+                .AddJsonOptions(options => options.JsonSerializerOptions.IgnoreNullValues = true);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
@@ -81,9 +70,8 @@ namespace StackOverHead.Web
                 options
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowAnyOrigin());
-
-            app.UseProblemDetailsExceptionHandler(loggerFactory);
+                    .AllowAnyOrigin())
+                .UseProblemDetailsExceptionHandler(loggerFactory);
 
             if (env.IsDevelopment())
             {
@@ -97,38 +85,38 @@ namespace StackOverHead.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app
+                .UseHttpsRedirection()
+                .UseStaticFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", Assembly.GetExecutingAssembly().GetName().Name));
-
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
+            app
+                .UseSwagger()
+                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", Assembly.GetExecutingAssembly().GetName().Name))
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
                 {
-                    // spa.UseAngularCliServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
-                }
-            });
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller}/{action=Index}/{id?}");
+                })
+                .UseSpa(spa =>
+                {
+                    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                    // see https://go.microsoft.com/fwlink/?linkid=864501
+                    spa.Options.SourcePath = "ClientApp";
+
+                    if (env.IsDevelopment())
+                    {
+                        // spa.UseAngularCliServer(npmScript: "start");
+                        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200/");
+                    }
+                });
         }
     }
 }
