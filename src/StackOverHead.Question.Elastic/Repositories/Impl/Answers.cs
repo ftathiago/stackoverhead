@@ -23,7 +23,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
         public async Task UpdateAsync(Answer model)
         {
             var answer = await _client.GetAsync<Answer>(model.Id);
-            if (answer is null)
+            if (!answer.Found)
                 throw new DocumentNotFoundElkException(model.Id);
             await _client.IndexDocumentAsync<Answer>(model);
         }
