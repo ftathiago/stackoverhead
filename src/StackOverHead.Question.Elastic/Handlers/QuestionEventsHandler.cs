@@ -27,7 +27,15 @@ namespace StackOverHead.Question.Elastic.Handlers
                 AnswerKind = AnswerKind.QuestionBody,
                 Content = notification.Body,
             };
+            var title = new Answer
+            {
+                Id = notification.Id,
+                QuestionId = notification.Id,
+                AnswerKind = AnswerKind.QuestionBody,
+                Content = notification.Title,
+            };
             await _answers.AddAsync(answer);
+            await _answers.AddAsync(title);
         }
     }
 }

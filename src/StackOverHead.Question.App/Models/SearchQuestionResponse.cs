@@ -9,5 +9,6 @@ namespace StackOverHead.Question.App.Models
         public Guid QuestionId { get; set; }
         public AnswerKind AnswerKind { get; set; }
         public string Content { get; set; }
+        public string Tags { get; set; }
     }
 }

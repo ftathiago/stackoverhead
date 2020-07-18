@@ -10,7 +10,7 @@ namespace StackOverHead.Question.Elastic.Repositories
         Task UpdateAsync(Answer question);
         Task RemoveAsync(Answer model);
         Task<IEnumerable<Answer>> SearchAsync(
-            string question,
+            string content,
             string tags,
             int page,
             int pageSize);

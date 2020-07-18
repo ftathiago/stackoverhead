@@ -32,7 +32,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
             await _client.DeleteAsync<Answer>(model);
 
         public async Task<IEnumerable<Answer>> SearchAsync(
-            string question,
+            string content,
             string tags,
             int page,
             int pageSize)
@@ -42,7 +42,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
                 {
                     q.Match(m => m
                         .Field(f => f.Content)
-                        .Query(question));
+                        .Query(content));
                     if (string.IsNullOrEmpty(tags))
                         return q;
                     return q && q.Match(m => m
