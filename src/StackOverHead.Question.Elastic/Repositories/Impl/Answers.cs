@@ -23,7 +23,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
         public async Task UpdateAsync(Answer model)
         {
             var answer = await _client.GetAsync<Answer>(model.Id);
-            if (answer is null)
+            if (!answer.Found)
                 throw new DocumentNotFoundElkException(model.Id);
             await _client.IndexDocumentAsync<Answer>(model);
         }
@@ -32,7 +32,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
             await _client.DeleteAsync<Answer>(model);
 
         public async Task<IEnumerable<Answer>> SearchAsync(
-            string question,
+            string content,
             string tags,
             int page,
             int pageSize)
@@ -42,7 +42,7 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
                 {
                     q.Match(m => m
                         .Field(f => f.Content)
-                        .Query(question));
+                        .Query(content));
                     if (string.IsNullOrEmpty(tags))
                         return q;
                     return q && q.Match(m => m

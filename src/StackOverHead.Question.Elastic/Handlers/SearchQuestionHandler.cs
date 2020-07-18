@@ -1,27 +1,22 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using StackOverHead.Question.App.Command;
 using StackOverHead.Question.App.Models;
 using StackOverHead.Question.Elastic.Repositories;
-using AutoMapper;
-using StackOverHead.Question.Elastic.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace StackOverHead.Question.Elastic.Handlers
 {
     public class SearchQuestionHandler : IRequestHandler<QuestionCommand, IEnumerable<SearchQuestionResponse>>
     {
         private readonly IAnswerRepository _answers;
-        private readonly IMapper _mapper;
 
-        public SearchQuestionHandler(
-            IAnswerRepository answers,
-            IMapper mapper)
+        public SearchQuestionHandler(IAnswerRepository answers)
         {
             _answers = answers;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<SearchQuestionResponse>> Handle(
@@ -40,6 +35,7 @@ namespace StackOverHead.Question.Elastic.Handlers
                 QuestionId = answer.QuestionId,
                 AnswerKind = answer.AnswerKind,
                 Content = answer.Content,
+                Tags = answer.Tags,
             });
         }
     }
