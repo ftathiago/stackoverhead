@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Nest;
 using StackOverHead.Question.Elastic.Exceptions;
 using StackOverHead.Question.Elastic.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StackOverHead.Question.Elastic.Repositories.Impl
 {
@@ -20,16 +20,16 @@ namespace StackOverHead.Question.Elastic.Repositories.Impl
             await _client.IndexDocumentAsync<Answer>(answer);
         }
 
-        public async Task UpdateAsync(Answer model)
+        public async Task UpdateAsync(Answer answer)
         {
-            var answer = await _client.GetAsync<Answer>(model.Id);
-            if (!answer.Found)
-                throw new DocumentNotFoundElkException(model.Id);
-            await _client.IndexDocumentAsync<Answer>(model);
+            var answerResponse = await _client.GetAsync<Answer>(answer.Id);
+            if (!answerResponse.Found)
+                throw new DocumentNotFoundElkException(answer.Id);
+            await _client.IndexDocumentAsync<Answer>(answer);
         }
 
-        public async Task RemoveAsync(Answer model) =>
-            await _client.DeleteAsync<Answer>(model);
+        public async Task RemoveAsync(Answer answer) =>
+            await _client.DeleteAsync<Answer>(answer);
 
         public async Task<IEnumerable<Answer>> SearchAsync(
             string content,

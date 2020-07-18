@@ -1,11 +1,4 @@
-﻿// <copyright file="Startup.cs" company="BlogDoFT">
-// Copyright (c) BlogDoFT. All rights reserved.
-// </copyright>
-
-using System.IO.Compression;
-using System.Reflection;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -13,10 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
 using StackOverHead.CrossCutting.Extensions;
 using StackOverHead.Web.Extensions;
 using StackOverHead.Web.Models;
+using System.IO.Compression;
+using System.Reflection;
 
 namespace StackOverHead.Web
 {

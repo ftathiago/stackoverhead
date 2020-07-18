@@ -2,7 +2,7 @@ using StackOverHead.LibCommon.Entities;
 
 namespace StackOverHead.LibCommon.Repositories
 {
-    public interface IConvertFromEntity<in TEntity, TData>
+    public interface IConvertFromEntity<in TEntity, out TData>
         where TEntity : Entity
         where TData : class
     {

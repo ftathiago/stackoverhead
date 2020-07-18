@@ -1,18 +1,13 @@
-﻿// <copyright file="JWTConfigExtension.cs" company="BlogDoFT">
-// Copyright (c) BlogDoFT. All rights reserved.
-// </copyright>
-
-using System.Text;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace StackOverHead.Web.Extensions
 {
-    public static class JWTConfigExtension // NOSONAR
+    public static class JwtConfigExtension
     {
         public static IServiceCollection AddJWTConfig(
             this IServiceCollection services,

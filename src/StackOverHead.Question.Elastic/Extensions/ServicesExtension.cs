@@ -1,22 +1,21 @@
-using System.Transactions;
-using System;
+using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
+using StackOverHead.Question.App.Command;
+using StackOverHead.Question.App.Models;
 using StackOverHead.Question.Domain.Events;
 using StackOverHead.Question.Elastic.Handlers;
+using StackOverHead.Question.Elastic.Mapper;
 using StackOverHead.Question.Elastic.Repositories;
 using StackOverHead.Question.Elastic.Repositories.Impl;
-using AutoMapper;
-using StackOverHead.Question.Elastic.Mapper;
-using StackOverHead.Question.App.Command;
+using System;
 using System.Collections.Generic;
-using StackOverHead.Question.App.Models;
 
 namespace StackOverHead.Question.Elastic.Extensions
 {
-    public static class ServiceExtension
+    public static class ServicesExtension
     {
         public static IServiceCollection AddQuestionElastic(
             this IServiceCollection services,

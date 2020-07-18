@@ -1,4 +1,3 @@
-using AutoMapper;
 using MediatR;
 using StackOverHead.Question.App.Command;
 using StackOverHead.Question.App.Models;

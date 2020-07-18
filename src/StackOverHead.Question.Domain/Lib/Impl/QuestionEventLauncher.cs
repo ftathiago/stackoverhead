@@ -17,15 +17,15 @@ namespace StackOverHead.Question.Domain.Lib.Impl
             _mediator = mediator;
         }
 
-        public async Task Publish(QuestionEntity question)
+        public async Task Publish(QuestionEntity askQuestion)
         {
             var registeredQuestion = new RegisteredQuestion
             {
-                Id = question.Id,
-                Title = question.Title,
-                Body = question.QuestionBody.Body,
+                Id = askQuestion.Id,
+                Title = askQuestion.Title,
+                Body = askQuestion.QuestionBody.Body,
                 Date = DateTime.Now,
-                Tags = question.Tags
+                Tags = askQuestion.Tags
             };
             await _mediator.Publish<RegisteredQuestion>(registeredQuestion);
         }

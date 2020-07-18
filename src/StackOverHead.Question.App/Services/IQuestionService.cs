@@ -13,6 +13,7 @@ namespace StackOverHead.Question.App.Services
         Task<Guid> RegisterQuestionComment(QuestionCommentRequest request);
         Task<Guid> RegisterAnswer(AnswerRequest request);
         Task<Guid> RegisterAnswerComment(AnswerCommentRequest request);
+
         Task<IEnumerable<SearchQuestionResponse>> Search(
             string question,
             string tags,

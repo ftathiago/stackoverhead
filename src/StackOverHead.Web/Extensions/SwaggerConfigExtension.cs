@@ -1,16 +1,13 @@
-﻿// <copyright file="SwaggerConfigExtension.cs" company="BlogDoFT">
-// Copyright (c) BlogDoFT. All rights reserved.
-// </copyright>
-
-using System;
-
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace StackOverHead.Web.Extensions
 {
     public static class SwaggerConfigExtension
     {
+        private const string SITE = "https://www.blogdoft.com.br";
+
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
         {
             var info = new OpenApiInfo
@@ -21,7 +18,7 @@ namespace StackOverHead.Web.Extensions
                 Contact = new OpenApiContact
                 {
                     Name = "Francisco Thiago de Almeida",
-                    Url = new Uri("https://www.blogdoft.com.br"),
+                    Url = new Uri(SITE),
                 },
             };
             services.AddSwaggerGen(config => config.SwaggerDoc(info.Version, info));

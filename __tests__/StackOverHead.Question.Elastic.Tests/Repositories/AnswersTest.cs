@@ -44,7 +44,7 @@ namespace StackOverHead.Question.Elastic.Tests.Repositories
         }
 
         [Fact]
-        public async Task ShouldUpdateExistingAnswer()
+        public void ShouldUpdateExistingAnswer()
         {/** It's not possible mock response */}
 
         [Fact]
