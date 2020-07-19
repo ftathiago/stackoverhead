@@ -1,14 +1,15 @@
+using StackOverHead.Question.Elastic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using StackOverHead.Question.Elastic.Models;
 
 namespace StackOverHead.Question.Elastic.Repositories
 {
     public interface IAnswerRepository
     {
-        Task AddAsync(Answer question);
-        Task UpdateAsync(Answer question);
-        Task RemoveAsync(Answer model);
+        Task AddAsync(Answer answer);
+        Task UpdateAsync(Answer answer);
+        Task RemoveAsync(Answer answer);
+
         Task<IEnumerable<Answer>> SearchAsync(
             string content,
             string tags,

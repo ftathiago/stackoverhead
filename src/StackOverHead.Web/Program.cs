@@ -18,13 +18,13 @@ namespace StackOverHead.Web
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             LogConfig();
             try
             {
                 Log.Debug("Starting application");
-                CreateHostBuilder(args)
+                CreateHostBuilder()
                     .Build()
                     .InitializeDataBase()
                     .Run();
@@ -36,11 +36,12 @@ namespace StackOverHead.Web
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-              .ConfigureAppConfiguration(configuration => AddConfigurationSettings(configuration))
-              .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
-              .UseSerilog();
+        public static IHostBuilder CreateHostBuilder() =>
+            Host
+                .CreateDefaultBuilder()
+                .ConfigureAppConfiguration(configuration => AddConfigurationSettings(configuration))
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
+                .UseSerilog();
 
         private static void LogConfig()
         {

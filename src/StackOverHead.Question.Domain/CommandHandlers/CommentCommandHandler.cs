@@ -1,14 +1,11 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
 using MediatR;
-
 using StackOverHead.Question.Domain.Command;
 using StackOverHead.Question.Domain.Entities;
 using StackOverHead.Question.Domain.Lib;
 using StackOverHead.Question.Domain.Repositories;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace StackOverHead.Question.Domain.CommandHandlers
 {

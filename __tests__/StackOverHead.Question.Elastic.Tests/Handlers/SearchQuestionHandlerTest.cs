@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Bogus;
 using FluentAssertions;
 using Moq;
-using StackOverHead.Question.App.Command;
-using StackOverHead.Question.Domain.Enums;
 using StackOverHead.Question.Elastic.Handlers;
 using StackOverHead.Question.Elastic.Models;
 using StackOverHead.Question.Elastic.Repositories;
 using StackOverHead.Question.Elastic.Tests.Fixtures;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace StackOverHead.Question.Elastic.Tests.Handlers
@@ -19,13 +16,11 @@ namespace StackOverHead.Question.Elastic.Tests.Handlers
         IDisposable,
         IClassFixture<SearchQuestionFixture>
     {
-        private readonly Faker _faker;
         private readonly SearchQuestionFixture _fixture;
         private readonly Mock<IAnswerRepository> _answers;
 
         public SearchQuestionHandlerTest(SearchQuestionFixture fixture)
         {
-            _faker = fixture.Faker();
             _fixture = fixture;
             _answers = new Mock<IAnswerRepository>(MockBehavior.Strict);
         }
@@ -58,18 +53,6 @@ namespace StackOverHead.Question.Elastic.Tests.Handlers
 
             response.Should().HaveCount(1);
             response.Should().BeEquivalentTo(answersFound);
-        }
-
-        [Fact]
-        public void ShouldReturnMoreThanOneQuestionReponse()
-        {
-
-        }
-
-        [Fact]
-        public void ShouldReturnEmptyEnumerationWhenNoneQuestionFound()
-        {
-
         }
     }
 }

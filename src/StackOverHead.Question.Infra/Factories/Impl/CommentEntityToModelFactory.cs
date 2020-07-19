@@ -19,14 +19,6 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             return model;
         }
 
-        private void ResolveParentId(AnswerModel model, CommentEntity from)
-        {
-            if (from.Parent is AnswerEntity)
-                model.AnswerId = from.Parent.Id;
-            if (from.Parent is QuestionEntity)
-                model.QuestionId = from.Parent.Id;
-        }
-
         public CommentEntity Execute(AnswerModel from)
         {
             var entity = new CommentEntity(
@@ -35,6 +27,14 @@ namespace StackOverHead.Question.Infra.Factories.Impl
             );
             entity.DefineId(from.Id);
             return entity;
+        }
+
+        private void ResolveParentId(AnswerModel model, CommentEntity from)
+        {
+            if (from.Parent is AnswerEntity)
+                model.AnswerId = from.Parent.Id;
+            if (from.Parent is QuestionEntity)
+                model.QuestionId = from.Parent.Id;
         }
     }
 }

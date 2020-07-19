@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
+    <ProjectGuid>16093B6D-CE45-4C1D-B29A-504CCA1E27B6</ProjectGuid>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Bogus" Version="30.0.1-beta-3" />
     <PackageReference Include="coverlet.msbuild" Version="2.9.0">
@@ -19,9 +17,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\StackOverHead.Question.Elastic\StackOverHead.Question.Elastic.csproj" />
   </ItemGroup>
-
 </Project>
